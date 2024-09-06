@@ -1,0 +1,19 @@
+{
+  "enemies": [
+    {
+      "name": "Rat",
+      "health": 10,
+      "damage": 5,
+      "speed": 5,
+      "canShoot": false
+    },
+    {
+      "name": "Bat",
+      "health": 10,
+      "damage": 1,
+      "speed": 10,
+      "canShoot": false
+    }
+  ]
+  
+}
