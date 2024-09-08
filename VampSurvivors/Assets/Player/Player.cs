@@ -1,3 +1,4 @@
+using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class Player : MonoBehaviour
     float health, maxHealth;
     [SerializeField]
     float _playerSpeed;
+    [SerializeField]
+    bool canMove = true;
 
     Rigidbody2D _rigidbody;
 
@@ -17,6 +20,9 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+
+        if(UnitManager.Instance)
+        UnitManager.Instance.AssignPlayer(this);
     }
 
     private void Update()
@@ -26,6 +32,12 @@ public class Player : MonoBehaviour
 
     void OnMove(InputValue value)
     {
+        if (!canMove)
+        {
+            inputVector = new Vector2();
+            return;
+        }
+
         inputVector = value.Get<Vector2>();
     }
 }

@@ -13,6 +13,8 @@ namespace Managers
 
         public List<Unit> enemies = new List<Unit>();
 
+        public Player player;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -23,7 +25,12 @@ namespace Managers
             {
                 Instance = this;
             }
-        }   
+        }
+        
+        public void AssignPlayer(Player _player)
+        {
+            player = _player;
+        }
     
     }
 }
