@@ -10,6 +10,9 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
+
+        [SerializeField]
+        bool startGame = false;
         
         [SerializeField]
         private StateController stateController;
@@ -28,8 +31,17 @@ namespace Managers
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
+#if UNITY_EDITOR
+            if (startGame)
+            {
+                LoadSceneAsync(2);
+                StartGame();
+            }
+            else
+#endif
+                stateController.SetStartState(new STMainMenu());
+
             
-            stateController.SetStartState(new STMainMenu());
         }
 
         public void StartGame()

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 640148673}
   - component: {fileID: 640148674}
   - component: {fileID: 640148675}
+  - component: {fileID: 640148676}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393e5696183ba874fa991e217cf43d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGame: 1
   stateController: {fileID: 640148674}
 --- !u!114 &640148674
 MonoBehaviour:
@@ -193,9 +195,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325ec8711b22f7447b497fbf0febfd26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitData: {fileID: 4900000, guid: 9688c6a4b7f09f24a9deeee3b35c1bd3, type: 3}
-  enemyTypes:
-    units: []
+  unitData:
+  - {fileID: 0}
+  enemies: []
+--- !u!114 &640148676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640148671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41645530ba632d04199424d7e17b3bf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemList:
+    items: []
 --- !u!1 &644219487
 GameObject:
   m_ObjectHideFlags: 0

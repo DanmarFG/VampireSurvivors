@@ -8,6 +8,11 @@ namespace Managers
     public class UnitManager : MonoBehaviour
     {
         public static UnitManager Instance;
+
+        public List<Unit> unitData = new List<Unit>();
+
+        public List<Unit> enemies = new List<Unit>();
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -18,27 +23,7 @@ namespace Managers
             {
                 Instance = this;
             }
-        }
-    
-        [Serializable]
-        public class UnitData
-        {
-            public string name;
-            public float health, damage, speed;
-            public bool canShoot;
-        }
-    
-        [Serializable]
-        public class EnemyList
-        {
-            public UnitData[] enemies;
-        }
-
-        public EnemyList enemyTypes = new EnemyList();
-        private void Start()
-        {
-            enemyTypes = JsonUtility.FromJson<EnemyList>(Resources.Load<TextAsset>("Enemies/EnemyData").text);
-        }
+        }   
     
     }
 }
