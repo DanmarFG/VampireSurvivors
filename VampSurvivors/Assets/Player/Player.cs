@@ -35,11 +35,6 @@ public class Player : MonoBehaviour
         _rigidbody.velocity = _inputVector * playerSpeed;
     }
 
-    private void OnMouseDown()
-    {
-        TakeDamage(2);
-    }
-
     private void OnMove(InputValue value)
     {
         if (!canMove)
@@ -76,5 +71,10 @@ public class Player : MonoBehaviour
             EventManager.Instance.PlayerDied();
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator ShootProjectile()
+    {
+        yield return new WaitForSeconds(1f);
     }
 }

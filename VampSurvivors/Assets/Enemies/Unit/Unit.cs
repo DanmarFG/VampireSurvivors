@@ -28,14 +28,14 @@ public class Unit : MonoBehaviour
         if (canTakeDamage)
         {
             health -= damageSource;
-            StartCoroutine(enemyTakeDamageCooldown());
+            StartCoroutine(EnemyTakeDamageCooldown());
         }
         
         if(health <= 0)
             EnemyDeath();
     }
 
-    IEnumerator enemyTakeDamageCooldown()
+    IEnumerator EnemyTakeDamageCooldown()
     {
         canTakeDamage = false;
         yield return new WaitForSeconds(0.1f);
