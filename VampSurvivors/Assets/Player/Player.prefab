@@ -240,9 +240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f983dbc311bad64e8a53d550f8ca981, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
-  _playerSpeed: 10
+  health: 10
+  maxHealth: 10
+  playerSpeed: 1
+  canMove: 1
+  canTakeDamage: 1
 --- !u!50 &5744806769827858758
 Rigidbody2D:
   serializedVersion: 4

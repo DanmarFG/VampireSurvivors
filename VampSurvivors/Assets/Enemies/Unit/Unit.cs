@@ -10,7 +10,7 @@ public class Unit : MonoBehaviour
 
     public new string name = "Unit";
     public float health = 0, damage = 0, speed = 0;
-    public bool canShoot = false;
+    public bool canShoot = false, canTakeDamage = true;
 
     private void Start()
     {
@@ -21,6 +21,30 @@ public class Unit : MonoBehaviour
         canShoot = EnemyUnit.canShoot;
 
         GetComponentInChildren<SpriteRenderer>().sprite = EnemyUnit.sprite;
+    }
+
+    public void TakeDamage(float damageSource)
+    {
+        if (canTakeDamage)
+        {
+            health -= damageSource;
+            StartCoroutine(enemyTakeDamageCooldown());
+        }
+        
+        if(health <= 0)
+            EnemyDeath();
+    }
+
+    IEnumerator enemyTakeDamageCooldown()
+    {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(0.1f);
+        canTakeDamage = true;
+    }
+
+    void EnemyDeath()
+    {
+        gameObject.SetActive(false);
     }
 
 

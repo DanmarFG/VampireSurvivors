@@ -25,6 +25,19 @@ namespace Managers
         {
             DontDestroyOnLoad(gameObject);
         }
+        
+        public event Action<float> OnPlayerTookDamage;
+        public event Action OnPlayerDied;
+
+        public void PlayerTookDamage(float damage)
+        {
+            OnPlayerTookDamage?.Invoke(damage);
+        }
+
+        public void PlayerDied()
+        {
+            OnPlayerDied?.Invoke();
+        }
     } 
 }
 

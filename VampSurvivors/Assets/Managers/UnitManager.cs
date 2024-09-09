@@ -8,10 +8,10 @@ namespace Managers
     public class UnitManager : MonoBehaviour
     {
         public static UnitManager Instance;
-
-        public List<Unit> unitData = new List<Unit>();
-
-        public List<Unit> enemies = new List<Unit>();
+        
+        [SerializeField]
+        private List<GameObject> enemyData = new List<GameObject>();
+        public List<GameObject> enemies = new List<GameObject>();
 
         public Player player;
 
@@ -30,6 +30,27 @@ namespace Managers
         public void AssignPlayer(Player _player)
         {
             player = _player;
+        }
+
+        public void SpawnEnemy(string monsterName)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var enemy = Instantiate(enemyData[0]);
+                enemy.SetActive(false);
+                enemies.Add(enemy);
+            }
+        }
+
+        public GameObject GetEnemy(string monsterName)
+        {
+            foreach (var monster in enemies)
+            {
+                if(monster.name == monsterName && !monster.gameObject.activeInHierarchy)
+                    return monster.gameObject;
+            }
+            SpawnEnemy(monsterName);
+            return GetEnemy(monsterName);
         }
     
     }
