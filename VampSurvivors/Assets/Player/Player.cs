@@ -15,11 +15,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool canMove = true, canTakeDamage = true;
 
+    [SerializeField] private float fireBallSpeed = 200f;
+    [SerializeField] private float fireBallDamage = 200f;
+
+    [SerializeField] private float shootDelay = 1f;
+    [SerializeField] private PlayerAim playerAim;
+
     private Rigidbody2D _rigidbody;
 
     private Vector2 _inputVector;
 
-    private void Start()
+    private IEnumerator Start()
     {
         health = maxHealth;
         
@@ -27,7 +33,10 @@ public class Player : MonoBehaviour
 
         if(UnitManager.Instance)
             UnitManager.Instance.AssignPlayer(this);
-        
+
+        yield return null;
+        StartCoroutine(ShootProjectile());
+
     }
 
     private void Update()
@@ -75,6 +84,16 @@ public class Player : MonoBehaviour
 
     IEnumerator ShootProjectile()
     {
-        yield return new WaitForSeconds(1f);
+        while (true)
+        {
+            GameObject shot = ProjectileBag.Instance.FindProjectile(Managers.ProjectileType.Fireball);
+            var projectile = shot.GetComponent<Projectile>();
+            
+            projectile.SetSpeed(fireBallSpeed);
+            projectile.SetDamage(fireBallDamage);
+            projectile.ShootProjectile(playerAim.GetAimDirection(), transform.position);
+
+            yield return new WaitForSeconds(shootDelay);
+        }
     }
 }

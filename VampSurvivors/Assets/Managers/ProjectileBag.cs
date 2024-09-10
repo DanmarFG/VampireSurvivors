@@ -1,21 +1,43 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
 {
-    public enum ProjectileType {All, Fireball}
+    public enum ProjectileType {All, Fireball, IceBall}
     public enum ProjectileTeam {Friendly, Evil}
 
     public class ProjectileBag : MonoBehaviour
     {
+        public static ProjectileBag Instance;
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+            }
+        }
+
+        [Header("Prefabs")]
+        [SerializeField] private GameObject fireballPF;
+        
         [Header("Bullet Lists")]
         public List<GameObject> allProjectiles;
         public List<GameObject> fireBallList;
-        
+
+        private void Start()
+        {
+            SpawnBullets(ProjectileType.Fireball, 20);
+        }
+
         public GameObject FindProjectile(ProjectileType type)
         {
-            List<GameObject> projectileList = GetProjectileLists(type);
-            for (int b = 0; b < projectileList.Count; b++)
+            var projectileList = GetProjectileLists(type);
+            for (var b = 0; b < projectileList.Count; b++)
             {
                 if (projectileList[b].activeSelf == false)
                 {
@@ -28,53 +50,42 @@ namespace Managers
                 }
             }
 
-            Debug.LogWarning("Couldn't Find a Bullet");
-            return null;
+            return  FindProjectile(type);
         }
         
-        void SpawnBullets(ProjectileType type, int amount)
+        private void SpawnBullets(ProjectileType type, int amount)
         {
-            GameObject prefab = GetBulletPrefab(type);
+            var prefab = GetProjectilePrefab(type);
 
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
             {
-                GameObject projectile = Instantiate(prefab, transform);
+                var projectile = Instantiate(prefab, transform);
                 GetProjectileLists(type).Add(projectile);
 
-                projectile.name = type.ToString() + "Bullet" + GetProjectileLists(type).Count;
-                //projectile.GetComponent<Projectile>().SetUp((type != ProjectileType.unhittable)); //Set up variables & fx before disable
-
+                projectile.name = type.ToString() + GetProjectileLists(type).Count;
+                
                 projectile.SetActive(false);
                 allProjectiles.Add(projectile);
             }
         }
         
-        private GameObject GetBulletPrefab(ProjectileType type)
+        private GameObject GetProjectilePrefab(ProjectileType type)
         {
-            switch (type)
+            return type switch
             {
-                case ProjectileType.Fireball:
-                    return null;
-                    break;
-            }
-
-            return null;
+                ProjectileType.Fireball => fireballPF,
+                _ => null
+            };
         }
         
         private List<GameObject> GetProjectileLists(ProjectileType type)
         {
-            switch (type)
+            return type switch
             {
-                case ProjectileType.All:
-                    return allProjectiles;
-                    break;
-                case ProjectileType.Fireball:
-                    return fireBallList;
-                    break;
-                default:
-                    return allProjectiles;
-                    break;
-            }
+                ProjectileType.All => allProjectiles,
+                ProjectileType.Fireball => fireBallList,
+                _ => allProjectiles
+            };
         }
     }
 }

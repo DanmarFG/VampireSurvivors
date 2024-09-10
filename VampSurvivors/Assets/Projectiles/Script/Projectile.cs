@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    protected float Speed;
-    protected float TimeAlive;
+    public float Speed;
+    public float TimeAlive;
 
     public float damage;
 
-    private Vector2 _dir;
+    public Vector2 _dir;
     public float lifeTime;
 
     void OnDisable()

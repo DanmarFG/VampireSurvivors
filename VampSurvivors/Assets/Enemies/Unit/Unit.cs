@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Managers;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 
 
 public class Unit : MonoBehaviour
 {
+    NavMeshAgent agent;
+    
+    GameObject player;
+    
     public EnemyUnit EnemyUnit;
 
     public new string name = "Unit";
@@ -21,18 +27,48 @@ public class Unit : MonoBehaviour
         canShoot = EnemyUnit.canShoot;
 
         GetComponentInChildren<SpriteRenderer>().sprite = EnemyUnit.sprite;
+        
+        agent = GetComponent<NavMeshAgent>();
+        agent.updatePosition = true;
+        agent.updateUpAxis = false;
+        agent.updateRotation = false;
+        agent.speed = speed;
+
+        player = UnitManager.Instance.player.gameObject;
+
     }
+
+    private void OnEnable()
+    {
+        canTakeDamage = true;
+        agent.isStopped = false;
+    }
+    
+    private void OnDisable()
+    {
+        canTakeDamage = true;
+        agent.isStopped = true;
+    }
+
+    private void Update()
+    {
+        agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
+    }
+
+    public void SetSpeed(float newSpeed) => speed = newSpeed;
 
     public void TakeDamage(float damageSource)
     {
-        if (canTakeDamage)
-        {
-            health -= damageSource;
-            StartCoroutine(EnemyTakeDamageCooldown());
-        }
+        if (!canTakeDamage) return;
         
-        if(health <= 0)
-            EnemyDeath();
+        health -= damageSource;
+        Debug.Log("ded");
+            
+        StartCoroutine(EnemyTakeDamageCooldown());
+        
+        if(health <= 0){
+            Death();
+        }
     }
 
     IEnumerator EnemyTakeDamageCooldown()
@@ -42,10 +78,15 @@ public class Unit : MonoBehaviour
         canTakeDamage = true;
     }
 
-    void EnemyDeath()
+    public void Spawn(Vector2 position)
     {
-        gameObject.SetActive(false);
+        transform.position = position;
+        gameObject.SetActive(true);
     }
 
-
+    void Death()
+    {
+        StopAllCoroutines();
+        gameObject.SetActive(false);
+    }
 }

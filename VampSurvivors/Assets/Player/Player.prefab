@@ -290,6 +290,8 @@ MonoBehaviour:
   playerSpeed: 1
   canMove: 1
   canTakeDamage: 1
+  shootDelay: 1
+  playerAim: {fileID: 4107679381672304121}
 --- !u!50 &5744806769827858758
 Rigidbody2D:
   serializedVersion: 4

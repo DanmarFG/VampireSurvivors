@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4689274988188710030, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
       propertyPath: m_Name
-      value: EnemyPF Variant
+      value: Bat
       objectReference: {fileID: 0}
     - target: {fileID: 5930359702320187810, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,10 +52,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8641682191593227942, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
-      propertyPath: EnemyUnit
-      value: 
-      objectReference: {fileID: 11400000, guid: 4eac36ff14630cc4eb9e6fe76a383a24, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
