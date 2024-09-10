@@ -32,7 +32,7 @@ namespace Managers
         
         private void Start()
         {
-            CreateEnemy(UnitType.Bat, 10);
+            CreateEnemy(UnitType.Bat, 20);
         }
         
         public GameObject FindEnemy(UnitType type)

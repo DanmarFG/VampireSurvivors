@@ -8,7 +8,8 @@ using UnityEngine.AI;
 
 public class Unit : MonoBehaviour
 {
-    NavMeshAgent agent;
+    [SerializeField]NavMeshAgent agent;
+    [SerializeField]SpriteRenderer spriteRenderer;
     
     GameObject player;
     
@@ -26,9 +27,8 @@ public class Unit : MonoBehaviour
         speed = EnemyUnit.speed;
         canShoot = EnemyUnit.canShoot;
 
-        GetComponentInChildren<SpriteRenderer>().sprite = EnemyUnit.sprite;
+        spriteRenderer.sprite = EnemyUnit.sprite;
         
-        agent = GetComponent<NavMeshAgent>();
         agent.updatePosition = true;
         agent.updateUpAxis = false;
         agent.updateRotation = false;
@@ -41,13 +41,13 @@ public class Unit : MonoBehaviour
     private void OnEnable()
     {
         canTakeDamage = true;
-        agent.isStopped = false;
+        
     }
     
     private void OnDisable()
     {
         canTakeDamage = true;
-        agent.isStopped = true;
+        
     }
 
     private void Update()
@@ -80,12 +80,14 @@ public class Unit : MonoBehaviour
 
     public void Spawn(Vector2 position)
     {
+        agent.isStopped = false;
         transform.position = position;
         gameObject.SetActive(true);
     }
 
     void Death()
     {
+        agent.isStopped = true;
         StopAllCoroutines();
         gameObject.SetActive(false);
     }

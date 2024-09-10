@@ -101,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38596daefa4d781428d5b2c69824599c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 2824212646810168089}
+  spriteRenderer: {fileID: 7284969915747311230}
   EnemyUnit: {fileID: 11400000, guid: 4eac36ff14630cc4eb9e6fe76a383a24, type: 2}
   name: Unit
   health: 0
