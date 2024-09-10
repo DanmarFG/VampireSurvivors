@@ -6,11 +6,7 @@ public class SpawnController : MonoBehaviour
 {
     private IEnumerator Start()
     {
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
-        yield return null;
+        yield return new WaitForSeconds(5f);
         StartCoroutine(SpawnEnemy());
     }
 
