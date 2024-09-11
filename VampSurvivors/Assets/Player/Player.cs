@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
     {
         if(!canTakeDamage)
             return;
+        
         health -= damage;
         EventManager.Instance.PlayerTookDamage(damage);
         PlayerDeath();
@@ -74,19 +75,18 @@ public class Player : MonoBehaviour
 
     void PlayerDeath()
     {
-        if (health <= 0)
-        {
-            StopAllCoroutines();
-            EventManager.Instance.PlayerDied();
-            Destroy(gameObject);
-        }
+        if (!(health <= 0)) return;
+        
+        StopAllCoroutines();
+        EventManager.Instance.PlayerDied();
+        Destroy(gameObject);
     }
 
     IEnumerator ShootProjectile()
     {
         while (true)
         {
-            GameObject shot = ProjectileBag.Instance.FindProjectile(Managers.ProjectileType.Fireball);
+            var shot = ProjectileBag.Instance.FindProjectile(Managers.ProjectileType.Fireball);
             var projectile = shot.GetComponent<Projectile>();
             
             projectile.SetSpeed(fireBallSpeed);

@@ -38,14 +38,14 @@ namespace Managers
         public GameObject FindEnemy(UnitType type)
         {
             var projectileList = GetEnemyLists(type);
-            for (var b = 0; b < projectileList.Count; b++)
+            for (var i = 0; i < projectileList.Count; i++)
             {
-                if (projectileList[b].activeSelf == false)
+                if (projectileList[i].activeSelf == false)
                 {
-                    return projectileList[b];
+                    return projectileList[i];
                 }
 
-                if (b == projectileList.Count - 1)
+                if (i == projectileList.Count - 1)
                 {
                     CreateEnemy(type, 10);
                 }
