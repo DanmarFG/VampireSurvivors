@@ -62,7 +62,6 @@ public class Unit : MonoBehaviour
         if (!canTakeDamage) return;
         
         health -= damageSource;
-        Debug.Log("ded");
             
         StartCoroutine(EnemyTakeDamageCooldown());
         
@@ -80,9 +79,9 @@ public class Unit : MonoBehaviour
 
     public void Spawn(Vector2 position)
     {
-        agent.isStopped = false;
         transform.position = position;
         gameObject.SetActive(true);
+        agent.isStopped = false;
     }
 
     void Death()

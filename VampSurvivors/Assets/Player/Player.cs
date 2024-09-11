@@ -15,11 +15,17 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool canMove = true, canTakeDamage = true;
 
+    [SerializeField] private PlayerAim playerAim;
+    
+    [Header("Fireball")]
+    [SerializeField] private float fireballShootDelay = 1f;
     [SerializeField] private float fireBallSpeed = 200f;
     [SerializeField] private float fireBallDamage = 200f;
-
-    [SerializeField] private float shootDelay = 1f;
-    [SerializeField] private PlayerAim playerAim;
+    
+    [Header("Active Sword Attack")]
+    [SerializeField] private Punch punch;
+    [SerializeField] private float attackDowntime = 2f;
+    
 
     private Rigidbody2D _rigidbody;
 
@@ -33,10 +39,7 @@ public class Player : MonoBehaviour
 
         if(UnitManager.Instance)
             UnitManager.Instance.AssignPlayer(this);
-
         yield return null;
-        StartCoroutine(ShootProjectile());
-
     }
 
     private void Update()
@@ -53,6 +56,11 @@ public class Player : MonoBehaviour
         }
 
         _inputVector = value.Get<Vector2>();
+    }
+
+    private void OnPunch()
+    {
+        punch.Attack(playerAim.GetAimDirection());
     }
 
     public void TakeDamage(float damage)
@@ -82,7 +90,13 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator ShootProjectile()
+    private IEnumerator SwordStrike()
+    {
+        
+        yield return new WaitForSeconds(attackDowntime);
+    }
+
+    private IEnumerator ShootFireball()
     {
         while (true)
         {
@@ -93,7 +107,7 @@ public class Player : MonoBehaviour
             projectile.SetDamage(fireBallDamage);
             projectile.ShootProjectile(playerAim.GetAimDirection(), transform.position);
 
-            yield return new WaitForSeconds(shootDelay);
+            yield return new WaitForSeconds(fireballShootDelay);
         }
     }
 }

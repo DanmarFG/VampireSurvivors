@@ -778,6 +778,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 274166618099398545, guid: bbad35f7ca1892d4f994bd46dfb22aca, type: 3}
+      propertyPath: damage
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4089290017738557232, guid: bbad35f7ca1892d4f994bd46dfb22aca, type: 3}
       propertyPath: playerSpeed
       value: 11.75

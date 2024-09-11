@@ -9,15 +9,18 @@ public class EnemyTriggerBox : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.GetComponentInParent<Projectile>())
-            return;
-        
-        Projectile p = other.GetComponentInParent<Projectile>();
-        Debug.Log("ake damage");
-        
-        _unit.TakeDamage(10f);
-        
+        if (other.GetComponent<Punch>())
+        {
+            _unit.TakeDamage(other.GetComponent<Punch>().damage);
+        }
 
-        p.HitEnemy();
+        if (other.GetComponentInParent<Projectile>())
+        {
+            Projectile p = other.GetComponentInParent<Projectile>();
+            _unit.TakeDamage(p.damage);
+            p.HitEnemy(); 
+        }
+        
+        
     }
 }

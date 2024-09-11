@@ -28,6 +28,8 @@ public class PlayerAim : MonoBehaviour
         mousePos = _mainCamera.ScreenToWorldPoint(mousePos);
         
         _lookingDirection = mousePos - transform.position;
+        
+        transform.up = _lookingDirection;
     }
 
     public Vector2 GetAimDirection()
