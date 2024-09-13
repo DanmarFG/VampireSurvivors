@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class PlayerAim : MonoBehaviour
 {
+    [SerializeField]private LayerMask enemyMask;
+    
     private Vector2 _lookingDirection;
 
     private Camera _mainCamera;
@@ -19,6 +21,13 @@ public class PlayerAim : MonoBehaviour
     private void Update()
     {
         RotateBox();
+        
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 1000f, enemyMask.value);
+        
+        if(hit.collider == null)
+            return;
+
+        hit.collider.gameObject.GetComponentInParent<Unit>().LookingAtPlayer();
     }
 
     private void RotateBox()
@@ -40,6 +49,6 @@ public class PlayerAim : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + _lookingDirection.normalized);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + _lookingDirection * 1000f);
     }
 }

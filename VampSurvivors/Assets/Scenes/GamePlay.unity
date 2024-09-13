@@ -786,6 +786,10 @@ PrefabInstance:
       propertyPath: playerSpeed
       value: 11.75
       objectReference: {fileID: 0}
+    - target: {fileID: 4107679381672304121, guid: bbad35f7ca1892d4f994bd46dfb22aca, type: 3}
+      propertyPath: enemyMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 4451759838141228068, guid: bbad35f7ca1892d4f994bd46dfb22aca, type: 3}
       propertyPath: m_Name
       value: Player

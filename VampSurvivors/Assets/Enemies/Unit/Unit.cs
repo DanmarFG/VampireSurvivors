@@ -13,7 +13,11 @@ public class Unit : MonoBehaviour
     
     GameObject player;
     
+    Rigidbody2D rb;
+    
     public EnemyUnit EnemyUnit;
+
+    public float runSpeed;
 
     public new string name = "Unit";
     public float health = 0, damage = 0, speed = 0;
@@ -33,15 +37,18 @@ public class Unit : MonoBehaviour
         agent.updateUpAxis = false;
         agent.updateRotation = false;
         agent.speed = speed;
+        runSpeed = speed / 2f;
 
         player = UnitManager.Instance.player.gameObject;
+        rb = player.GetComponent<Rigidbody2D>();
 
     }
 
     private void OnEnable()
     {
         canTakeDamage = true;
-        
+        agent.enabled = true;
+        agent.speed = speed;
     }
     
     private void OnDisable()
@@ -53,6 +60,25 @@ public class Unit : MonoBehaviour
     private void Update()
     {
         agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
+    }
+
+    private bool looking = true;
+    private Coroutine e;
+    
+    public void LookingAtPlayer()
+    {
+        agent.speed = runSpeed;
+
+        if(e != null)
+            StopCoroutine(e);
+        
+        e = StartCoroutine(ResetSpeed());
+    }
+
+    public IEnumerator ResetSpeed()
+    {
+        yield return new WaitForSeconds(0.1f);
+        agent.speed = speed;
     }
 
     public void SetSpeed(float newSpeed) => speed = newSpeed;

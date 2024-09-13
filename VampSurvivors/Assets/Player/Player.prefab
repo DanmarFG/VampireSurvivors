@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5337160563965764471}
   - component: {fileID: 4354098782351155564}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collisionbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5412496961978631802}
   - component: {fileID: 407028101561941988}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 326022384901914438}
   - component: {fileID: 4107679381672304121}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DirectionController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,6 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53887311e5198524c80d3050ab4094b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4451759838141228068
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +221,7 @@ GameObject:
   - component: {fileID: 4355759689775002866}
   - component: {fileID: 4089290017738557232}
   - component: {fileID: 5744806769827858758}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +326,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &5043653676730893402
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +339,7 @@ GameObject:
   - component: {fileID: 358029782907544615}
   - component: {fileID: 492539113835049060}
   - component: {fileID: 274166618099398545}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SwordAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6316573944025473991}
   - component: {fileID: 6102677924135505393}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Triggerbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
