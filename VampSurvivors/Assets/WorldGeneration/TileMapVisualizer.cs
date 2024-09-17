@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using NavMeshPlus.Components;
 
 public class TileMapVisualizer : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap tileMap, WallTileMap;
+    private Tilemap floorTileMap, wallTileMap;
+    
+    [SerializeField]
+    NavMeshSurface navMesh;
     
     [SerializeField]
     private TileBase floorTile, wallTop; //Make random list later
 
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
-        PaintTiles(floorPositions,tileMap, floorTile);
+        PaintTiles(floorPositions, floorTileMap, floorTile);
     }
 
     private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tileMap, TileBase tile)
@@ -22,9 +26,10 @@ public class TileMapVisualizer : MonoBehaviour
         {
             PaintSingleTile(tileMap, tile, position);
         }
+       
     }
 
-    private void PaintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int position)
+    private void PaintSingleTile(Tilemap tileMap, TileBase tile, Vector2Int position)
     {
         var tilePosition = tileMap.WorldToCell((Vector3Int)position);
         tileMap.SetTile(tilePosition, tile);
@@ -32,12 +37,13 @@ public class TileMapVisualizer : MonoBehaviour
 
     public void Clear()
     {
-        tileMap.ClearAllTiles();
-        WallTileMap.ClearAllTiles();
+        floorTileMap.ClearAllTiles();
+        wallTileMap.ClearAllTiles();
+        navMesh.RemoveData();
     }
 
     public void PaintSingleBasicWall(Vector2Int position)
     {
-        PaintSingleTile(WallTileMap, wallTop, position);
+        PaintSingleTile(wallTileMap, wallTop, position);
     }
 }

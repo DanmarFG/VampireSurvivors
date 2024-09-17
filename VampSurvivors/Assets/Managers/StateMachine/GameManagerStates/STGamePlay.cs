@@ -10,6 +10,7 @@ namespace GMStates
     {
         public void OnEnter()
         {
+            
         }
 
         public void UpdateState()

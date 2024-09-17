@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NavMeshPlus.Components;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,9 +14,14 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [Range(0.1f, 1f)]
     private float roomPercent = 0.8f;
     
+    [SerializeField]
+    NavMeshSurface navMesh;
+    
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
+        
+        navMesh.BuildNavMesh();
     }
 
     private void CorridorFirstGeneration()
