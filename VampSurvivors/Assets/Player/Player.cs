@@ -43,16 +43,13 @@ public class Player : MonoBehaviour
         }
             
         yield return null;
+
+        StartCoroutine(ShootFireball());
     }
 
     private void Update()
     {
         _rigidbody.velocity = _inputVector * playerSpeed;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ExperienceBag.Instance.SpawnExperience(transform.position);
-        }
     }
 
     private void OnMove(InputValue value)

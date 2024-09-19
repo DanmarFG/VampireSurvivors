@@ -42,6 +42,10 @@ namespace Managers
         private IEnumerator Start()
         {
             yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
+            yield return null;
             
             CreateEnemy(UnitType.Bat, 20);
 

@@ -116,6 +116,13 @@ public class Unit : MonoBehaviour
     {
         agent.isStopped = true;
         StopAllCoroutines();
+
+
+        var randomNumber = (int)Random.Range(1f, 4f);
+        
+        for(var i = 0; i < randomNumber; i++)
+            ExperienceBag.Instance.SpawnExperience(transform.position);
+        
         gameObject.SetActive(false);
     }
 

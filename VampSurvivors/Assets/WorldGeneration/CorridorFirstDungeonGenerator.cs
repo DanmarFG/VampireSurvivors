@@ -26,6 +26,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     IEnumerator BuildNavmesh()
     {
+        
         yield return null;
         yield return null;
         yield return null;
