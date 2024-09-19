@@ -103,11 +103,13 @@ public class Unit : MonoBehaviour
         canTakeDamage = true;
     }
 
-    public void Spawn(Vector2 position)
+    public void Spawn(Vector3Int position)
     {
         transform.position = position;
         gameObject.SetActive(true);
         agent.isStopped = false;
+
+        StartCoroutine(PositionController());
     }
 
     void Death()
@@ -115,5 +117,14 @@ public class Unit : MonoBehaviour
         agent.isStopped = true;
         StopAllCoroutines();
         gameObject.SetActive(false);
+    }
+
+    IEnumerator PositionController()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if(!UnitManager.Instance.FloorMap.HasTile(new Vector3Int((int)transform.position.x, (int)transform.position.y,0)))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

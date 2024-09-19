@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace Managers
 {
@@ -9,7 +11,13 @@ namespace Managers
     public class UnitManager : MonoBehaviour
     {
         public static UnitManager Instance;
+        
+        [SerializeField]
+        private CinemachineVirtualCamera virtualCamera;
 
+        [SerializeField] private Tilemap floorMap;
+        public Tilemap FloorMap => floorMap;
+        
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -29,11 +37,21 @@ namespace Managers
         public List<GameObject> batList = new List<GameObject>();
 
         public Player player;
+        public GameObject playerPF;
         
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return null;
+            
             CreateEnemy(UnitType.Bat, 20);
+
+            if (player == null)
+            {
+                Instantiate(playerPF, new Vector3(0, 0, 0), Quaternion.identity);
+            }
         }
+        
+        
         
         public GameObject FindEnemy(UnitType type)
         {
@@ -89,9 +107,12 @@ namespace Managers
             };
         }
 
-        public void AssignPlayer(Player _player)
+        public IEnumerator AssignPlayer(Player _player)
         {
             player = _player;
+            yield return null;
+
+            virtualCamera.Follow = player.gameObject.transform;
         }
     }
 }

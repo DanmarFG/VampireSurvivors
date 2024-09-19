@@ -20,7 +20,18 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
-        
+
+        StartCoroutine(BuildNavmesh());
+    }
+
+    IEnumerator BuildNavmesh()
+    {
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
+        yield return null;
         navMesh.BuildNavMesh();
     }
 

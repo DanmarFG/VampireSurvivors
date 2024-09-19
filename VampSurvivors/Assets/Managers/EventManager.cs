@@ -38,6 +38,13 @@ namespace Managers
         {
             OnPlayerDied?.Invoke();
         }
+
+        public event Action<float> OnAddExperience;
+
+        public void AddExperience(float experience)
+        {
+            OnAddExperience?.Invoke(experience);
+        }
     } 
 }
 

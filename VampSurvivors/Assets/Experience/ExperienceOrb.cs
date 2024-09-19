@@ -1,0 +1,71 @@
+using Managers;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class ExperienceOrb : MonoBehaviour
+{
+    private Vector3 _targetPosition;
+
+    [SerializeField]
+    private float baseSpeed;
+    
+    private float _speed;
+
+    public float expAmmount = 1f;
+
+    [SerializeField]
+    private bool gotoPlayer = false;
+    
+    private void Update()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
+        
+        if (gotoPlayer)
+            _targetPosition = UnitManager.Instance.player.transform.position;
+            
+    }
+    
+    private void OnEnable()
+    {
+        _speed = baseSpeed;
+        gotoPlayer = false;
+    }
+
+    public void Spawn(Vector3 position)
+    {
+        var x = Random.Range(-1.0f, 1.0f);
+        var y = Random.Range(-1.0f, 1.0f);
+        
+        _targetPosition = new Vector3(position.x + x, position.y + y, 0);
+        
+        transform.position = position;
+        
+        gameObject.SetActive(true);
+    }
+
+    public void GoToPlayer()
+    {
+        _speed += 20.0f;
+        gotoPlayer = true;
+    }
+
+    private void CollectExperience()
+    {
+        EventManager.Instance.AddExperience(expAmmount);
+        gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.GetComponentInParent<Player>()) return;
+        
+        StopAllCoroutines();
+        CollectExperience();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, _targetPosition);
+    }
+}

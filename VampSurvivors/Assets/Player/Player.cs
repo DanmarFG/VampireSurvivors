@@ -37,14 +37,22 @@ public class Player : MonoBehaviour
         
         _rigidbody = GetComponent<Rigidbody2D>();
 
-        if(UnitManager.Instance)
-            UnitManager.Instance.AssignPlayer(this);
+        if (UnitManager.Instance)
+        {
+            StartCoroutine(UnitManager.Instance.AssignPlayer(this));
+        }
+            
         yield return null;
     }
 
     private void Update()
     {
         _rigidbody.velocity = _inputVector * playerSpeed;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ExperienceBag.Instance.SpawnExperience(transform.position);
+        }
     }
 
     private void OnMove(InputValue value)
