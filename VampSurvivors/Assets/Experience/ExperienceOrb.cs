@@ -1,3 +1,4 @@
+using System.Collections;
 using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -15,6 +16,9 @@ public class ExperienceOrb : MonoBehaviour
 
     [SerializeField]
     private bool gotoPlayer = false;
+    
+    [SerializeField]
+    private Collider2D colliders;
     
     private void Update()
     {
@@ -41,6 +45,15 @@ public class ExperienceOrb : MonoBehaviour
         transform.position = position;
         
         gameObject.SetActive(true);
+
+        StartCoroutine(toggleColliders());
+    }
+
+    public IEnumerator toggleColliders()
+    {
+        colliders.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        colliders.enabled = true;
     }
 
     public void GoToPlayer()

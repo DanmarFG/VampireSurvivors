@@ -144,4 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 10
+  expAmmount: 1
   gotoPlayer: 0
+  colliders: {fileID: 4671042245652302645}
