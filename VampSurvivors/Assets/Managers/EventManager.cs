@@ -43,6 +43,8 @@ namespace Managers
 
         public void AddExperience(float experience)
         {
+            Debug.Log("AddExperience");
+            
             OnAddExperience?.Invoke(experience);
         }
     } 

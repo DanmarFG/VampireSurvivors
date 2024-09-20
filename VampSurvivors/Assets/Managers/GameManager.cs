@@ -35,7 +35,7 @@ namespace Managers
             if (startGame)
             {
                 LoadSceneAsync(2);
-                StartGame();
+                stateController.SetStartState(new STGamePlay());
             }
             else
 #endif
@@ -52,12 +52,16 @@ namespace Managers
         public static void LoadSceneAsync(int buildIndex = 1)
         {
             SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
-            SceneManager.SetActiveScene(SceneManager.GetSceneAt(buildIndex));
         }
         
         public static void UnLoadSceneAsync(int buildIndex = 1)
         {
             SceneManager.UnloadSceneAsync(buildIndex);
+        }
+
+        public void LevelUpState()
+        {
+            stateController.ChangeState(new STLevelUp());
         }
     } 
 }
