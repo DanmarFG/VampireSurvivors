@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,11 +22,11 @@ namespace Managers
         }
 
         [Header("Prefabs")]
-        [SerializeField] private GameObject fireballPF;
+        [SerializeField] private GameObject _fireballPf;
         
         [Header("Bullet Lists")]
-        public List<GameObject> allProjectiles;
-        public List<GameObject> fireBallList;
+        public List<GameObject> AllProjectiles;
+        public List<GameObject> FireBallList;
 
         private void Start()
         {
@@ -65,7 +64,7 @@ namespace Managers
                 projectile.name = type.ToString() + GetProjectileLists(type).Count;
                 
                 projectile.SetActive(false);
-                allProjectiles.Add(projectile);
+                AllProjectiles.Add(projectile);
             }
         }
         
@@ -73,7 +72,7 @@ namespace Managers
         {
             return type switch
             {
-                ProjectileType.Fireball => fireballPF,
+                ProjectileType.Fireball => _fireballPf,
                 _ => null
             };
         }
@@ -82,9 +81,9 @@ namespace Managers
         {
             return type switch
             {
-                ProjectileType.All => allProjectiles,
-                ProjectileType.Fireball => fireBallList,
-                _ => allProjectiles
+                ProjectileType.All => AllProjectiles,
+                ProjectileType.Fireball => FireBallList,
+                _ => AllProjectiles
             };
         }
     }

@@ -62,7 +62,6 @@ public class Unit : MonoBehaviour
         agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
     }
 
-    private bool looking = true;
     private Coroutine e;
     
     public void LookingAtPlayer()
