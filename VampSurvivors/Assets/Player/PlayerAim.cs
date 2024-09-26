@@ -8,7 +8,9 @@ using UnityEngine.UIElements;
 public class PlayerAim : MonoBehaviour
 {
     [SerializeField]private LayerMask enemyMask;
-    
+
+    [SerializeField] private FieldOfView fov;
+
     private Vector2 _lookingDirection;
 
     private Camera _mainCamera;
@@ -21,13 +23,18 @@ public class PlayerAim : MonoBehaviour
     private void Update()
     {
         RotateBox();
-        
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 1000f, enemyMask.value);
-        
-        if(hit.collider == null)
-            return;
 
-        hit.collider.gameObject.GetComponentInParent<Unit>().LookingAtPlayer();
+        Ghost g;
+
+        foreach (var enemy in fov.visibleTargets)
+        {
+            g = enemy.GetComponentInParent<Ghost>();
+
+            if (g == null)
+                continue;
+            g.Spotted();
+
+        }
     }
 
     private void RotateBox()

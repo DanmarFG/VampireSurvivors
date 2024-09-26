@@ -3,6 +3,7 @@ using Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
@@ -44,12 +45,15 @@ public class Player : MonoBehaviour
             
         yield return null;
 
-        StartCoroutine(ShootFireball());
+        //StartCoroutine(ShootFireball());
     }
 
     private void Update()
     {
         _rigidbody.velocity = _inputVector * playerSpeed;
+
+        
+        
     }
 
     private void OnMove(InputValue value)
@@ -119,5 +123,12 @@ public class Player : MonoBehaviour
 
             yield return new WaitForSeconds(fireballShootDelay);
         }
+    }
+
+    public void LevelUp()
+    {
+        maxHealth += maxHealth * 0.1f;
+        fireBallDamage += fireBallDamage * 0.1f;
+        punch.damage += punch.damage * 0.1f;
     }
 }

@@ -16,7 +16,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private float roomPercent = 0.8f;
     
     [SerializeField]
-    NavMeshSurface navMesh;
+    NavMeshSurface[] navMesh;
     
     protected override void RunProceduralGeneration()
     {
@@ -27,20 +27,22 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     IEnumerator BuildNavmesh()
     {
-        navMesh.OnNavmeshFinishedBuilding += Finished;
+
+        navMesh[^1].OnNavmeshFinishedBuilding += Finished;
         yield return null;
         yield return null;
         yield return null;
         yield return null;
         yield return null;
         yield return null;
-        navMesh.BuildNavMesh();
+        foreach(var n in navMesh)
+            n.BuildNavMesh();
 
     }
 
     private void Finished()
     {
-        navMesh.OnNavmeshFinishedBuilding-= Finished;
+        navMesh[^1].OnNavmeshFinishedBuilding-= Finished;
         EventManager.Instance.NavMeshFinished();
     }
 

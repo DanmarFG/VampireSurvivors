@@ -62,18 +62,6 @@ public class Unit : MonoBehaviour
         agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
     }
 
-    private Coroutine e;
-    
-    public void LookingAtPlayer()
-    {
-        agent.speed = runSpeed;
-
-        if(e != null)
-            StopCoroutine(e);
-        
-        e = StartCoroutine(ResetSpeed());
-    }
-
     public IEnumerator ResetSpeed()
     {
         yield return new WaitForSeconds(0.1f);

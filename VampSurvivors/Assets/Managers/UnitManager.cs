@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 namespace Managers
 {
-    public enum UnitType {All, Bat, SkellyBoi}
+    public enum UnitType {All, Bat, Ghost}
     public class UnitManager : MonoBehaviour
     {
         public static UnitManager Instance;
@@ -35,6 +35,7 @@ namespace Managers
 
         public List<GameObject> allEnemies = new List<GameObject>();
         public List<GameObject> batList = new List<GameObject>();
+        public List<GameObject> ghostList = new List<GameObject>();
 
         public Player player;
         public GameObject playerPF;
@@ -54,6 +55,7 @@ namespace Managers
         void OnNavmeshFinishedBuilding()
         {
             CreateEnemy(UnitType.Bat, 20);
+            CreateEnemy(UnitType.Ghost, 20);
         }
         
         
@@ -98,6 +100,7 @@ namespace Managers
             return type switch
             {
                 UnitType.Bat => enemyPrefabs[0],
+                UnitType.Ghost => enemyPrefabs[1],
                 _ => null
             };
         }
@@ -108,6 +111,7 @@ namespace Managers
             {
                 UnitType.All => allEnemies,
                 UnitType.Bat => batList,
+                UnitType.Ghost => ghostList,
                 _ => allEnemies
             };
         }

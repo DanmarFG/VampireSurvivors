@@ -10,21 +10,23 @@ public class TileMapVisualizer : MonoBehaviour
     private Tilemap floorTileMap, wallTileMap;
     
     [SerializeField]
-    NavMeshSurface navMesh;
+    NavMeshSurface[] navMesh;
     
     [SerializeField]
     private TileBase floorTile, wallTop; //Make random list later
 
+    [SerializeField] private TileBase[] floorTiles;
+
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
-        PaintTiles(floorPositions, floorTileMap, floorTile);
+        PaintTiles(floorPositions, floorTileMap, floorTiles);
     }
 
-    private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tileMap, TileBase tile)
+    private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tileMap, TileBase[] tile)
     {
         foreach (var position in positions)
         {
-            PaintSingleTile(tileMap, tile, position);
+            PaintSingleTile(tileMap, floorTiles[(int)Random.Range(0, floorTiles.Length)], position);
         }
        
     }
@@ -39,7 +41,9 @@ public class TileMapVisualizer : MonoBehaviour
     {
         floorTileMap.ClearAllTiles();
         wallTileMap.ClearAllTiles();
-        navMesh.RemoveData();
+
+        foreach(var n in navMesh)
+            n.RemoveData();
     }
 
     public void PaintSingleBasicWall(Vector2Int position)
