@@ -2,6 +2,7 @@ using NavMeshPlus.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -95,6 +96,8 @@ namespace NavMeshPlus.Components
 
         static readonly List<NavMeshSurface> s_NavMeshSurfaces = new List<NavMeshSurface>();
         public INavMeshExtensionsProvider NevMeshExtensions { get; set; } = new NavMeshExtensionsProvider();
+
+        public event Action OnNavmeshFinishedBuilding;
 
         public static List<NavMeshSurface> activeSurfaces
         {
@@ -193,7 +196,10 @@ namespace NavMeshPlus.Components
                 RemoveData();
                 m_NavMeshData = data;
                 if (isActiveAndEnabled)
+                {
                     AddData();
+                    OnNavmeshFinishedBuilding?.Invoke();
+                }
             }
         }
 

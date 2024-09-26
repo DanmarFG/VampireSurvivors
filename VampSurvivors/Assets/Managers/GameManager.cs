@@ -41,7 +41,8 @@ namespace Managers
 #endif
                 stateController.SetStartState(new STMainMenu());
 
-            
+            EventManager.Instance.OnPauseGame += PauseGame;
+
         }
 
         public void StartGame()
@@ -62,6 +63,14 @@ namespace Managers
         public void LevelUpState()
         {
             stateController.ChangeState(new STLevelUp());
+        }
+
+        public void PauseGame()
+        {
+            if(Time.timeScale != 0)
+                stateController.ChangeState(new STPauseGame());
+            else
+                stateController.ChangeState(new STGamePlay());
         }
     } 
 }

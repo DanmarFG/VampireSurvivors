@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393e5696183ba874fa991e217cf43d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGame: 1
+  startGame: 0
   stateController: {fileID: 640148674}
 --- !u!114 &640148674
 MonoBehaviour:

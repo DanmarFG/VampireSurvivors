@@ -68,6 +68,11 @@ public class Player : MonoBehaviour
         punch.Attack(playerAim.GetAimDirection());
     }
 
+    private void OnPause()
+    {
+        EventManager.Instance.PauseGame();
+    }
+
     public void TakeDamage(float damage)
     {
         if(!canTakeDamage)

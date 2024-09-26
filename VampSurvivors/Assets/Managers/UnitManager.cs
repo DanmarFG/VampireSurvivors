@@ -42,17 +42,18 @@ namespace Managers
         private IEnumerator Start()
         {
             yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
-            yield return null;
+            EventManager.Instance.OnNavMeshBuilt += OnNavmeshFinishedBuilding;
             
-            CreateEnemy(UnitType.Bat, 20);
 
             if (player == null)
             {
                 Instantiate(playerPF, new Vector3(0, 0, 0), Quaternion.identity);
             }
+        }
+
+        void OnNavmeshFinishedBuilding()
+        {
+            CreateEnemy(UnitType.Bat, 20);
         }
         
         

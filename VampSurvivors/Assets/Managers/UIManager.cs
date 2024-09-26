@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour
         currentLevel++;
         ExpBar.maxValue = maxExp;
         EventManager.Instance.OnAddExperience += AddExperience;
-        
-        SceneManager.SetActiveScene(SceneManager.GetSceneAt(1));
     }
 
     void AddExperience(float exp)

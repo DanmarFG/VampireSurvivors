@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Managers;
 using NavMeshPlus.Components;
 using UnityEditor;
 using UnityEngine;
@@ -26,7 +27,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     IEnumerator BuildNavmesh()
     {
-        
+        navMesh.OnNavmeshFinishedBuilding += Finished;
         yield return null;
         yield return null;
         yield return null;
@@ -34,6 +35,13 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         yield return null;
         yield return null;
         navMesh.BuildNavMesh();
+
+    }
+
+    private void Finished()
+    {
+        navMesh.OnNavmeshFinishedBuilding-= Finished;
+        EventManager.Instance.NavMeshFinished();
     }
 
     private void CorridorFirstGeneration()
