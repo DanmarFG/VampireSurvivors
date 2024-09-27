@@ -43,6 +43,7 @@ public class SpawnController : MonoBehaviour
         {
             Vector3Int spawnPosition = GetRandomSpawnPoint();
             UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn(spawnPosition);
+            UnitManager.Instance.FindEnemy(UnitType.Bat).GetComponent<Unit>().Spawn(spawnPosition);
             yield return new WaitForSeconds(0.5f);
         }
     }

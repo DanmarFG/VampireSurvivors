@@ -55,5 +55,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4689274988188710030, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8865968787390057822}
   m_SourcePrefab: {fileID: 100100000, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+--- !u!1 &5124464879667076850 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4689274988188710030, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+  m_PrefabInstance: {fileID: 436399917080636028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8865968787390057822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5124464879667076850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5acd2ec8a31f0434cb7b6f5267eaf766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7140192106334614530}
+  spritesToSwapBetween:
+  - {fileID: -1858100789, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}
+  - {fileID: 719873681, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}
+--- !u!212 &7140192106334614530 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7284969915747311230, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+  m_PrefabInstance: {fileID: 436399917080636028}
+  m_PrefabAsset: {fileID: 0}

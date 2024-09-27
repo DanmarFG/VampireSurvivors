@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: 0
+  gameIsPaused: 0
   stateController: {fileID: 640148674}
 --- !u!114 &640148674
 MonoBehaviour:

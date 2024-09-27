@@ -36,6 +36,9 @@ public class Player : MonoBehaviour
     [Header("Active Sword Attack")]
     [SerializeField] private Punch punch;
     [SerializeField] private float attackDowntime = 2f;
+
+    [Header("Animator")]
+    [SerializeField] private Animator playerAnimator;
     
 
     private Rigidbody2D _rigidbody;
@@ -75,6 +78,13 @@ public class Player : MonoBehaviour
         }
 
         _inputVector = value.Get<Vector2>();
+
+        if (_inputVector == Vector2.zero)
+            playerAnimator.SetBool("Moving", false);
+        else
+            playerAnimator.SetBool("Moving", true);
+
+
     }
 
     private void OnPunch()

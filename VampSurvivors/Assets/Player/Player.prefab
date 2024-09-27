@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 4355759689775002866}
   - component: {fileID: 4089290017738557232}
   - component: {fileID: 5744806769827858758}
+  - component: {fileID: 663308277362979081}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -332,6 +333,7 @@ MonoBehaviour:
   fireBallDamage: 200
   punch: {fileID: 274166618099398545}
   attackDowntime: 2
+  playerAnimator: {fileID: 663308277362979081}
 --- !u!50 &5744806769827858758
 Rigidbody2D:
   serializedVersion: 4
@@ -359,6 +361,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &663308277362979081
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4451759838141228068}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bfec71751650fc34fba47b3be311c6aa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5043653676730893402
 GameObject:
   m_ObjectHideFlags: 0

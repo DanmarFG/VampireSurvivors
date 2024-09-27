@@ -92,6 +92,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 2491569724085215264}
   stats: {fileID: 8236845314049658271}
+  spriteRenderer: {fileID: 6970202836029674823}
+  spritesToSwapBetween:
+  - {fileID: 316697945, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}
+  - {fileID: 1681495827, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}
+--- !u!212 &6970202836029674823 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7284969915747311230, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+  m_PrefabInstance: {fileID: 405969409023052601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8236845314049658271 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8641682191593227942, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}

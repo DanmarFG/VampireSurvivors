@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Ghost : MonoBehaviour
+public class Bat : MonoBehaviour
 {
-
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Unit stats;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite[] spritesToSwapBetween;
+
+    private void OnEnable()
+    {
+        StartCoroutine(Animation());
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -17,34 +18,15 @@ public class Ghost : MonoBehaviour
         
     }
 
-    private void OnEnable()
-    {
-        StartCoroutine(Animation());
-    }
-
+    // Update is called once per frame
     void Update()
     {
-       
-    }
-    public void Spotted()
-    {
-        StopAllCoroutines();
-        agent.speed = 0;
-        spriteRenderer.sprite = spritesToSwapBetween[0];
-        StartCoroutine(SetBackSpeed());
-    }
-
-    IEnumerator SetBackSpeed()
-    {
-        yield return new WaitForSeconds(0.1f);
-        agent.speed = stats.speed;
         
-        StartCoroutine(Animation());
     }
 
     IEnumerator Animation()
     {
-        while (true) 
+        while (true)
         {
             Debug.Log("Swap");
             spriteRenderer.sprite = spritesToSwapBetween[0];
