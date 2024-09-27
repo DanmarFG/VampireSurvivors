@@ -17,6 +17,8 @@ public class Unit : MonoBehaviour
     
     public EnemyUnit EnemyUnit;
 
+    public GameObject bloodFX;
+
     public float runSpeed;
 
     public new string name = "Unit";
@@ -109,7 +111,9 @@ public class Unit : MonoBehaviour
         
         for(var i = 0; i < randomNumber; i++)
             ExperienceBag.Instance.SpawnExperience(transform.position);
-        
+
+        Instantiate(bloodFX, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+
         gameObject.SetActive(false);
     }
 

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389c21b5d44a38d44b36251cbad5a037, type: 3}
+  m_Name: AttackUp
+  m_EditorClassIdentifier: 
+  stats:
+    speed: 0
+    health: 0
+    maxHealth: 0
+    maxFov: 0
+    fireballShootDelay: 0
+    fireballDamage: 10
+    fireballSpeed: 0
+    punchDamage: 0
+    punchReach: 0
+  flairText: 'AttackGloves: +10 fireball damage'
+  picToDisplay: {fileID: -1525251414, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}

@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ada6ae0c9baa24da8ab03a02204057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 12
+  viewRadius: 15
   viewAngle: 35
   fovRotation: -276.63867
   targetMask:

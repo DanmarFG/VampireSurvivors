@@ -194,6 +194,7 @@ MonoBehaviour:
   agent: {fileID: 2824212646810168089}
   spriteRenderer: {fileID: 7284969915747311230}
   EnemyUnit: {fileID: 11400000, guid: 4eac36ff14630cc4eb9e6fe76a383a24, type: 2}
+  bloodFX: {fileID: 1323258083077294298, guid: c57b557bde22ebd4881b5a5a89720656, type: 3}
   runSpeed: 0
   name: Unit
   health: 0

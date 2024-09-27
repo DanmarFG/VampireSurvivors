@@ -1,3 +1,4 @@
+using Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,9 @@ public class PlayerAim : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.gameIsPaused == true)
+            return;
+
         RotateBox();
 
         Ghost g;

@@ -7,6 +7,16 @@ using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+[System.Serializable]
+public struct PlayerStats
+{
+    public float speed, health, maxHealth, maxFov;
+
+    public float fireballShootDelay, fireballDamage, fireballSpeed;
+
+    public float punchDamage, punchReach;
+}
+
 public class Player : MonoBehaviour
 {
     [SerializeField]
@@ -127,8 +137,28 @@ public class Player : MonoBehaviour
 
     public void LevelUp()
     {
+        
         maxHealth += maxHealth * 0.1f;
         fireBallDamage += fireBallDamage * 0.1f;
         punch.damage += punch.damage * 0.1f;
+    }
+
+    public void AddStats(PlayerStats statsToAdd)
+    {
+        maxHealth += statsToAdd.maxHealth;
+        health += statsToAdd.health;
+        playerSpeed += statsToAdd.speed;
+        fireBallDamage += statsToAdd.fireballDamage;
+
+        if(GetComponentInChildren<FieldOfView>().viewAngle < 180)
+        {
+            GetComponentInChildren<FieldOfView>().viewAngle += statsToAdd.maxFov;
+            GetComponentInChildren<Light>().spotAngle += statsToAdd.maxFov;
+        }
+        fireballShootDelay += statsToAdd.fireballShootDelay;
+        fireBallSpeed += statsToAdd.fireballSpeed;
+        punch.damage += statsToAdd.punchDamage;
+        Debug.Log(statsToAdd.punchReach);
+
     }
 }

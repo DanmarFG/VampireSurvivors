@@ -13,6 +13,8 @@ namespace GMStates
             Time.timeScale = 0.0f;
 
             UnitManager.Instance.player.GetComponent<Player>().LevelUp();
+            UIManager.levelUpScreen.SetActive(true);
+            GameManager.Instance.gameIsPaused = true;
         }
 
         public void UpdateState()
@@ -22,7 +24,9 @@ namespace GMStates
 
         public void OnExit()
         {
+            UIManager.levelUpScreen.SetActive(false);
             Time.timeScale = 1.0f;
+            GameManager.Instance.gameIsPaused = false;
         }
     }
 }

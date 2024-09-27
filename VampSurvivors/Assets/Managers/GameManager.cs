@@ -13,6 +13,8 @@ namespace Managers
 
         [SerializeField]
         bool startGame = false;
+
+        public bool gameIsPaused = false;
         
         [SerializeField]
         private StateController stateController;
