@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class Punch : MonoBehaviour
 {
     [SerializeField] private float attackUptime = 0.1f;
-    
+
     public float damage;
     public void SetDamage(float newDamage) => damage = newDamage;
     

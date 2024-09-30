@@ -13,7 +13,7 @@ public class CreateEnemyEditor : EditorWindow
 
     public Component customBehaviourToAdd;
 
-    [MenuItem("Tools/CreateEnemy")]
+    [MenuItem("Tools/Enemy/CreateEnemy")]
     public static void ShowWindow()
     {
         GetWindow(typeof(CreateEnemyEditor));
