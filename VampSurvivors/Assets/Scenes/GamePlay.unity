@@ -307,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &173726760
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -582,10 +582,10 @@ MonoBehaviour:
   virtualCamera: {fileID: 1372904763}
   floorMap: {fileID: 1710649333}
   enemyPrefabs:
-  - {fileID: 5124464879667076850, guid: e2d518ffe6c92984bbeb846d92e74fa3, type: 3}
-  - {fileID: 4949998904602148791, guid: afbd6dcff01f94d4aa029aa1f9ebff99, type: 3}
+  - {fileID: 2648528733084951595, guid: 506d1cc7d73ba6e4a800d5b8827294b1, type: 3}
+  - {fileID: 2648528733084951595, guid: 506d1cc7d73ba6e4a800d5b8827294b1, type: 3}
   allEnemies: []
-  batList: []
+  ratList: []
   ghostList: []
   player: {fileID: 0}
   playerPF: {fileID: 4451759838141228068, guid: bbad35f7ca1892d4f994bd46dfb22aca, type: 3}

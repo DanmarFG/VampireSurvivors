@@ -11,17 +11,12 @@ public class CreateEnemyEditor : EditorWindow
 
     public Sprite sprite;
 
-    public Component customBehaviourToAdd;
+    public MonoScript customBehaviourToAdd;
 
     [MenuItem("Tools/Enemy/CreateEnemy")]
     public static void ShowWindow()
     {
         GetWindow(typeof(CreateEnemyEditor));
-    }
-
-    void CreateGUI()
-    {
-
     }
 
     private void OnGUI()
@@ -37,7 +32,7 @@ public class CreateEnemyEditor : EditorWindow
 
         EditorGUILayout.BeginVertical();
         GUILayout.Label("Add a custom behaviour", EditorStyles.boldLabel);
-        customBehaviourToAdd = (Component)EditorGUILayout.ObjectField("Leave empty if no",customBehaviourToAdd, typeof(MonoBehaviour), true);
+        customBehaviourToAdd = (MonoScript)EditorGUILayout.ObjectField("Leave empty if no",customBehaviourToAdd, typeof(MonoScript), true);
         EditorGUILayout.EndVertical();  
         if (GUILayout.Button("Create ScriptableObject"))
         {
@@ -85,7 +80,7 @@ public class CreateEnemyEditor : EditorWindow
         pVariant.GetComponent<Unit>().EnemyUnit = UnitStatsToCreate;
 
         if(customBehaviourToAdd)
-            pVariant.AddComponent(customBehaviourToAdd.GetType());
+            pVariant.AddComponent(customBehaviourToAdd.GetClass());
 
         Selection.activeObject = pVariant;
     }

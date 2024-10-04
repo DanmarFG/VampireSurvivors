@@ -97,6 +97,11 @@ public class Player : MonoBehaviour
         EventManager.Instance.PauseGame();
     }
 
+    public float GetHealth()
+    {
+        return health;
+    }
+
     public void TakeDamage(float damage)
     {
         if(!canTakeDamage)

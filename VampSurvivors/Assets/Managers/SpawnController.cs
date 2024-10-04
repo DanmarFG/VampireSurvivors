@@ -33,8 +33,12 @@ public class SpawnController : MonoBehaviour
             }
         }
         
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnEnemy());
+        yield return new WaitForSeconds(1f);
+        Vector3Int spawnPosition = GetRandomSpawnPoint();
+        UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn(spawnPosition);
+
+
+        //StartCoroutine(SpawnEnemy());
     }
 
     IEnumerator SpawnEnemy()
@@ -43,7 +47,7 @@ public class SpawnController : MonoBehaviour
         {
             Vector3Int spawnPosition = GetRandomSpawnPoint();
             UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn(spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Bat).GetComponent<Unit>().Spawn(spawnPosition);
+            UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn(spawnPosition);
             yield return new WaitForSeconds(0.5f);
         }
     }

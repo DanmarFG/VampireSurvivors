@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 namespace Managers
 {
-    public enum UnitType {All, Bat, Ghost}
+    public enum UnitType {All, Rat, Ghost}
     public class UnitManager : MonoBehaviour
     {
         public static UnitManager Instance;
@@ -34,7 +34,7 @@ namespace Managers
         private List<GameObject> enemyPrefabs = new List<GameObject>();
 
         public List<GameObject> allEnemies = new List<GameObject>();
-        public List<GameObject> batList = new List<GameObject>();
+        public List<GameObject> ratList = new List<GameObject>();
         public List<GameObject> ghostList = new List<GameObject>();
 
         public Player player;
@@ -54,7 +54,7 @@ namespace Managers
 
         void OnNavmeshFinishedBuilding()
         {
-            CreateEnemy(UnitType.Bat, 20);
+            CreateEnemy(UnitType.Rat, 20);
             CreateEnemy(UnitType.Ghost, 20);
         }
         
@@ -99,7 +99,7 @@ namespace Managers
         {
             return type switch
             {
-                UnitType.Bat => enemyPrefabs[0],
+                UnitType.Rat => enemyPrefabs[0],
                 UnitType.Ghost => enemyPrefabs[1],
                 _ => null
             };
@@ -110,7 +110,7 @@ namespace Managers
             return type switch
             {
                 UnitType.All => allEnemies,
-                UnitType.Bat => batList,
+                UnitType.Rat => ratList,
                 UnitType.Ghost => ghostList,
                 _ => allEnemies
             };
@@ -122,6 +122,16 @@ namespace Managers
             yield return null;
 
             virtualCamera.Follow = player.gameObject.transform;
+        }
+
+        public Vector2 GetPlayerPosition()
+        {
+            if(player == null)
+                return Vector2.zero;
+            if(player.GetHealth() <= 0)
+                return Vector2.zero;
+
+            return player.transform.position;
         }
     }
 }
