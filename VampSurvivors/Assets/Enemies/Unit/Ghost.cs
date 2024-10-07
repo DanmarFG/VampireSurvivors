@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,49 +7,34 @@ public class Ghost : MonoBehaviour
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Unit stats;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private Sprite[] spritesToSwapBetween;
+    [SerializeField] private Animator animator;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float acceleration;
 
     private void OnEnable()
     {
-        StartCoroutine(Animation());
+        acceleration = agent.acceleration;
+        animator.SetBool("Spotted", false);
     }
 
-    void Update()
-    {
-       
-    }
     public void Spotted()
     {
         StopAllCoroutines();
+        agent.SetDestination(transform.position);
         agent.speed = 0;
-        spriteRenderer.sprite = spritesToSwapBetween[0];
+        agent.acceleration = 0;
+        stats.canMove = false;
+        animator.SetBool("Spotted", true);
         StartCoroutine(SetBackSpeed());
     }
 
     IEnumerator SetBackSpeed()
     {
         yield return new WaitForSeconds(0.1f);
+        Debug.Log("Running");
+        agent.acceleration = acceleration;
         agent.speed = stats.speed;
-        
-        StartCoroutine(Animation());
-    }
-
-    IEnumerator Animation()
-    {
-        while (true) 
-        {
-            Debug.Log("Swap");
-            spriteRenderer.sprite = spritesToSwapBetween[0];
-            yield return new WaitForSeconds(0.5f);
-            spriteRenderer.sprite = spritesToSwapBetween[1];
-            yield return new WaitForSeconds(0.5f);
-        }
+        stats.canMove = true;
+        animator.SetBool("Spotted", false);
     }
 }

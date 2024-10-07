@@ -19,11 +19,10 @@ public class Unit : MonoBehaviour
 
     public GameObject bloodFX;
 
-    public float runSpeed;
-
     public new string name = "Unit";
     public float health = 0, damage = 0, speed = 0;
     public bool canShoot = false, canTakeDamage = true;
+    public bool canMove = true;
 
     private void Start()
     {
@@ -39,7 +38,6 @@ public class Unit : MonoBehaviour
         agent.updateUpAxis = false;
         agent.updateRotation = false;
         agent.speed = speed;
-        runSpeed = speed / 2f;
 
         player = UnitManager.Instance.player.gameObject;
         rb = player.GetComponent<Rigidbody2D>();
@@ -61,16 +59,9 @@ public class Unit : MonoBehaviour
 
     private void Update()
     {
-        agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
+        if(canMove)
+            agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
     }
-
-    public IEnumerator ResetSpeed()
-    {
-        yield return new WaitForSeconds(0.1f);
-        agent.speed = speed;
-    }
-
-    public void SetSpeed(float newSpeed) => speed = newSpeed;
 
     public void TakeDamage(float damageSource)
     {
