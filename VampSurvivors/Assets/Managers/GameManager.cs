@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using GMStates;
+using States;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -11,10 +8,7 @@ namespace Managers
     {
         public static GameManager Instance;
 
-        [SerializeField]
-        bool startGame = false;
-
-        public bool gameIsPaused = false;
+        public bool gameIsPaused = false, isInLevelUp = false;
         
         [SerializeField]
         private StateController stateController;
@@ -33,36 +27,19 @@ namespace Managers
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
-#if UNITY_EDITOR
-            if (startGame)
-            {
-                LoadSceneAsync(2);
-                stateController.SetStartState(new STGamePlay());
-            }
-            else
-#endif
-                stateController.SetStartState(new STMainMenu());
+
+            stateController.SetStartState(new STLoadScene(1));
 
             EventManager.Instance.OnPauseGame += PauseGame;
 
         }
 
-        public void StartGame()
+        public void ChangeState(IState state)
         {
-            stateController.ChangeState(new STGamePlay());
+            stateController.ChangeState(state);
         }
 
-        public static void LoadSceneAsync(int buildIndex = 1)
-        {
-            SceneManager.LoadSceneAsync(buildIndex, LoadSceneMode.Additive);
-        }
-        
-        public static void UnLoadSceneAsync(int buildIndex = 1)
-        {
-            SceneManager.UnloadSceneAsync(buildIndex);
-        }
-
-        public void LevelUpState()
+        public void LevelUp()
         {
             stateController.ChangeState(new STLevelUp());
         }

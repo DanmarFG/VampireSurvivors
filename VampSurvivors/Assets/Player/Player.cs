@@ -1,11 +1,8 @@
-using System;
 using Managers;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct PlayerStats
@@ -27,6 +24,7 @@ public class Player : MonoBehaviour
     private bool canMove = true, canTakeDamage = true;
 
     [SerializeField] private PlayerAim playerAim;
+    [SerializeField] private Slider healthSlider;
     
     [Header("Fireball")]
     [SerializeField] private float fireballShootDelay = 1f;
@@ -56,6 +54,9 @@ public class Player : MonoBehaviour
             StartCoroutine(UnitManager.Instance.AssignPlayer(this));
         }
             
+        healthSlider.value = health;
+        healthSlider.maxValue = maxHealth;
+
         yield return null;
 
         //StartCoroutine(ShootFireball());
@@ -94,7 +95,8 @@ public class Player : MonoBehaviour
 
     private void OnPause()
     {
-        EventManager.Instance.PauseGame();
+        if(!GameManager.Instance.isInLevelUp)
+            EventManager.Instance.PauseGame();
     }
 
     public float GetHealth()
@@ -109,6 +111,7 @@ public class Player : MonoBehaviour
         
         health -= damage;
         EventManager.Instance.PlayerTookDamage(damage);
+        healthSlider.value = health;
         PlayerDeath();
         StartCoroutine(DamageCoolDown());
     }
@@ -154,6 +157,7 @@ public class Player : MonoBehaviour
     {
         
         maxHealth += maxHealth * 0.1f;
+        healthSlider.maxValue = maxHealth;
         fireBallDamage += fireBallDamage * 0.1f;
         punch.damage += punch.damage * 0.1f;
     }

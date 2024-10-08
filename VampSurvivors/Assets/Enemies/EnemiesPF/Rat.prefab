@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 62592fe48307f3548aebe96ff42dc491, type: 2}
+    - target: {fileID: 2824212646810168089, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+      propertyPath: m_Height
+      value: 0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2824212646810168089, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+      propertyPath: m_Radius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2824212646810168089, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3045382855793181532, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
       propertyPath: m_Size.x
       value: 0.10629174

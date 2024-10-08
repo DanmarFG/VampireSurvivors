@@ -25,7 +25,7 @@ public class ExperienceOrb : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
         
         if (gotoPlayer)
-            _targetPosition = UnitManager.Instance.player.transform.position;
+            _targetPosition = UnitManager.Instance.GetPlayerPosition();
             
     }
     

@@ -17,7 +17,11 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     
     [SerializeField]
     NavMeshSurface[] navMesh;
-    
+
+    public HashSet<Vector2Int> floorPositions;
+
+
+
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
@@ -48,7 +52,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 
     private void CorridorFirstGeneration()
     {
-        HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
+        floorPositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
         
         CreateCorridors(floorPositions, potentialRoomPositions);

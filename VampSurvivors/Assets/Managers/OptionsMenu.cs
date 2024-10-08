@@ -11,6 +11,11 @@ public class OptionsMenu : MonoBehaviour
 
     public void ToggleGif()
     {
-        PlayerPrefs.SetInt("Gif", PlayerPrefs.GetInt("Gif") == 0 ? 1 : 0);
+        if (PlayerPrefs.GetInt("Gif") == 1)
+            PlayerPrefs.SetInt("Gif", 0);
+        else
+        {
+            PlayerPrefs.SetInt("Gif", 1);
+        }
     }   
 }

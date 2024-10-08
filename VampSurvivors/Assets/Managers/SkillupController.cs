@@ -1,3 +1,4 @@
+using GMStates;
 using Managers;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ public class SkillupController : MonoBehaviour
             Tables[i].transform.GetChild(0).GetComponent<Image>().sprite = skillsList[n].picToDisplay;
             Tables[i].transform.GetChild(1).GetComponent<TMP_Text>().text = skillsList[n].flairText;
             Tables[i].transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => skillsList[n].AddStats());
-            Tables[i].transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => GameManager.Instance.StartGame());
+            Tables[i].transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => GameManager.Instance.ChangeState(new STGamePlay()));
             Tables[i].transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => RemoveListenerOnCLick(n,n));
             
         }

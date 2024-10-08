@@ -40,16 +40,25 @@ namespace Managers
         public Player player;
         public GameObject playerPF;
         
-        private IEnumerator Start()
+        private void Start()
         {
-            yield return null;
             EventManager.Instance.OnNavMeshBuilt += OnNavmeshFinishedBuilding;
-            
+            EventManager.Instance.OnGamePlay += SpawnPlayer;
+        }
 
+        private void OnDisable()
+        {
+            EventManager.Instance.OnNavMeshBuilt -= OnNavmeshFinishedBuilding;
+        }
+
+        void SpawnPlayer()
+        {
             if (player == null)
             {
                 Instantiate(playerPF, new Vector3(0, 0, 0), Quaternion.identity);
             }
+
+            EventManager.Instance.OnGamePlay -= SpawnPlayer;
         }
 
         void OnNavmeshFinishedBuilding()

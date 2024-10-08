@@ -5,13 +5,16 @@ using Managers;
 using Unity.VisualScripting;
 using UnityEngine.AI;
 
+public interface IEnemy
+{
+    float GetDamage();
+}
 
-public class Unit : MonoBehaviour
+
+public class Unit : MonoBehaviour, IEnemy
 {
     [SerializeField]NavMeshAgent agent;
     [SerializeField]SpriteRenderer spriteRenderer;
-    
-    GameObject player;
     
     Rigidbody2D rb;
     
@@ -23,6 +26,8 @@ public class Unit : MonoBehaviour
     public float health = 0, damage = 0, speed = 0;
     public bool canShoot = false, canTakeDamage = true;
     public bool canMove = true;
+
+    public float GetDamage() => damage;
 
     private void Start()
     {
@@ -38,9 +43,6 @@ public class Unit : MonoBehaviour
         agent.updateUpAxis = false;
         agent.updateRotation = false;
         agent.speed = speed;
-
-        player = UnitManager.Instance.player.gameObject;
-        rb = player.GetComponent<Rigidbody2D>();
 
     }
 
@@ -60,7 +62,7 @@ public class Unit : MonoBehaviour
     private void Update()
     {
         if(canMove)
-            agent.SetDestination(new Vector3(player.transform.position.x, player.transform.position.y, 0));
+            agent.SetDestination(new Vector3(UnitManager.Instance.GetPlayerPosition().x, UnitManager.Instance.GetPlayerPosition().y, 0));
     }
 
     public void TakeDamage(float damageSource)
@@ -116,4 +118,6 @@ public class Unit : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    
 }

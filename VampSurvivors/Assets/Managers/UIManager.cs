@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GMStates;
 using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -51,7 +52,7 @@ public class UIManager : MonoBehaviour
         ExpBar.maxValue = maxExp;
 
 
-        GameManager.Instance.LevelUpState();
+        GameManager.Instance.LevelUp();
     }
 
     public static void ShowLevelUpScreen()
@@ -72,7 +73,7 @@ public class UIManager : MonoBehaviour
         
         ExpBar.maxValue = maxExp;
         currentLevel++;
-        GameManager.Instance.StartGame();
+        GameManager.Instance.ChangeState(new STGamePlay());
         
     }
 }

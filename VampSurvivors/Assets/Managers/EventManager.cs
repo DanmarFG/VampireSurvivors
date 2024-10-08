@@ -48,11 +48,16 @@ namespace Managers
             OnAddExperience?.Invoke(experience);
         }
 
-        public event Action OnPauseGame;
+        public event Action OnPauseGame, OnGamePlay;
 
         public void PauseGame()
         {
             OnPauseGame?.Invoke();
+        }
+
+        public void GamePlay()
+        {
+            OnGamePlay?.Invoke();
         }
 
         public event Action OnNavMeshBuilt;

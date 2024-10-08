@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using States;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace GMStates
 {
     public class STMainMenu : IState
     {
+        GameObject startGameButton;
+
         public void OnEnter()
         {
-            GameManager.LoadSceneAsync();
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
+            startGameButton = GameObject.Find("StartGameButton");
+            startGameButton.GetComponent<Button>().onClick.AddListener(LoadGamePlay);
+        }
+
+        void LoadGamePlay()
+        {
+            GameManager.Instance.ChangeState(new STLoadScene(2));
         }
 
         public void UpdateState()
@@ -20,8 +31,8 @@ namespace GMStates
 
         public void OnExit()
         {
-            GameManager.LoadSceneAsync(2);
-           GameManager.UnLoadSceneAsync(); 
+            startGameButton.GetComponent<Button>().onClick.RemoveAllListeners();
+
         }
     }  
 }
