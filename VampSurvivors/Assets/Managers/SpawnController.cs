@@ -15,37 +15,26 @@ public class SpawnController : MonoBehaviour
     [SerializeField]
     CorridorFirstDungeonGenerator firstDungeonGenerator;
     
-    private IEnumerator Start()
+    private void Start()
     {
         firstDungeonGenerator.GenerateDungeon();
 
-        //avalibleSpawnPositions = new List<Vector3>();
+        EventManager.Instance.OnGamePlay += StartSpawnTimer;
+    }
 
-        //for (int n = floorMap.cellBounds.xMin; n < floorMap.cellBounds.xMax; n++)
-        //{
-        //    for (int p = floorMap.cellBounds.yMin; p < floorMap.cellBounds.yMax; p++)
-        //    {
-        //        Vector3Int localPlace = new Vector3Int(n, p, (int)floorMap.transform.position.y);
-        //        Vector3 place = floorMap.CellToWorld(localPlace);
-        //        if (floorMap.HasTile(localPlace))
-        //        {
-        //            avalibleSpawnPositions.Add(place);
-        //        }
-        //    }
-        //}
+    void StartSpawnTimer()
+    {
+        EventManager.Instance.OnGamePlay -= StartSpawnTimer;
 
-        yield return new WaitForSeconds(1f);
         avalibleSpawnPositions = firstDungeonGenerator.floorPositions;
-
-        //Vector2Int spawnPosition = GetRandomSpawnPoint();
-        //UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-
 
         StartCoroutine(SpawnEnemy());
     }
 
     IEnumerator SpawnEnemy()
     {
+        //Do actual spawning and shit in here maybe waves or smth
+
         while (true)
         {
             Vector2Int spawnPosition = GetRandomSpawnPoint();
