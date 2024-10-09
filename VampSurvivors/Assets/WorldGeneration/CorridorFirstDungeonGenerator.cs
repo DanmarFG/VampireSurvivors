@@ -19,6 +19,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     NavMeshSurface[] navMesh;
 
     public HashSet<Vector2Int> floorPositions;
+    public HashSet<Vector2Int> obstaclePositions;
 
 
 
@@ -53,6 +54,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     private void CorridorFirstGeneration()
     {
         floorPositions = new HashSet<Vector2Int>();
+        obstaclePositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
         
         CreateCorridors(floorPositions, potentialRoomPositions);
@@ -66,6 +68,8 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         floorPositions.UnionWith(roomPositions);
         
         tileMapVisualizer.PaintFloorTiles(floorPositions);
+        foreach(var pos in obstaclePositions)
+            tileMapVisualizer.PaintSingleObstacle(pos);
         WallGenerator.CreateWalls(floorPositions, tileMapVisualizer);
     }
 
@@ -77,6 +81,14 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             {
                 var room = RunRandomWalk(randomWalkParameters, position);
                 roomFloors.UnionWith(room);
+            }
+
+            foreach (var roomPosition in deadEnds)
+            {
+                if (UnityEngine.Random.Range(0, 10) == 5)
+                {
+                    obstaclePositions.Add(roomPosition);
+                }
             }
         }
     }
@@ -112,6 +124,15 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             var roomFloor = RunRandomWalk(randomWalkParameters, roomPosition);
             roomPositions.UnionWith(roomFloor);
         }
+
+        foreach (var roomPosition in roomPositions)
+        {
+            if(UnityEngine.Random.Range(0, 10) == 5)
+            {
+                obstaclePositions.Add(roomPosition);
+            }
+        }
+
         return roomPositions;
     }
 

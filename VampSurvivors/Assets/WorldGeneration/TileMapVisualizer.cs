@@ -7,15 +7,15 @@ using NavMeshPlus.Components;
 public class TileMapVisualizer : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap floorTileMap, wallTileMap;
+    private Tilemap floorTileMap, wallTileMap, obstacleTileMap;
     
     [SerializeField]
     NavMeshSurface[] navMesh;
     
     [SerializeField]
-    private TileBase floorTile, wallTop; //Make random list later
+    private TileBase wallTop, chest; //Make random list later
 
-    [SerializeField] private TileBase[] floorTiles;
+    [SerializeField] private TileBase[] floorTiles, obstacleTiles;
 
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
@@ -26,7 +26,7 @@ public class TileMapVisualizer : MonoBehaviour
     {
         foreach (var position in positions)
         {
-            PaintSingleTile(tileMap, floorTiles[(int)Random.Range(0, floorTiles.Length)], position);
+            PaintSingleTile(tileMap, floorTiles[Random.Range(0, floorTiles.Length)], position);
         }
        
     }
@@ -41,13 +41,40 @@ public class TileMapVisualizer : MonoBehaviour
     {
         floorTileMap.ClearAllTiles();
         wallTileMap.ClearAllTiles();
+        obstacleTileMap.ClearAllTiles();
 
-        foreach(var n in navMesh)
+        foreach (var n in navMesh)
             n.RemoveData();
     }
 
     public void PaintSingleBasicWall(Vector2Int position)
     {
         PaintSingleTile(wallTileMap, wallTop, position);
+    }
+
+    public void PaintSingleObstacle(Vector2Int position)
+    {
+        int chests = 0;
+
+        if(chests < 7)
+            if (Random.Range(0, 10) > 8)
+            {
+                PaintSingleChest(position);
+                chests++;
+            }   
+            else
+            {
+                PaintSingleTile(obstacleTileMap, obstacleTiles[Random.Range(0, obstacleTiles.Length)], position);
+            }
+        else
+        {
+            PaintSingleTile(obstacleTileMap, obstacleTiles[Random.Range(0, obstacleTiles.Length)], position);
+        }
+
+    }
+
+    public void PaintSingleChest(Vector2Int position)
+    {
+        PaintSingleTile(obstacleTileMap, chest, position);
     }
 }
