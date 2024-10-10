@@ -39,6 +39,8 @@ namespace Managers
 
         public Player player;
         public GameObject playerPF;
+
+        public int spawnedEnemies = 0;
         
         private void Start()
         {

@@ -2,7 +2,9 @@ using Managers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 [System.Serializable]
 public struct PlayerStats
@@ -25,6 +27,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private PlayerAim playerAim;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private GameObject InterractText;
+    bool canInterract = false;
+
+    [SerializeField] TileBase chestTile, closedLadderTile, ladderTile;
     
     [Header("Fireball")]
     [SerializeField] private float fireballShootDelay = 1f;
@@ -43,6 +49,10 @@ public class Player : MonoBehaviour
 
     private Vector2 _inputVector;
 
+    private Vector3Int ladderPosition;
+
+    Tilemap obstacleMap;
+
     private IEnumerator Start()
     {
         health = maxHealth;
@@ -58,6 +68,10 @@ public class Player : MonoBehaviour
         healthSlider.maxValue = maxHealth;
 
         yield return null;
+
+        obstacleMap = GameObject.Find("Obstacles").GetComponent<Tilemap>();
+
+        EventManager.Instance.OnFinishedLadderEvent += ReplaceHatchWithLadder;
 
         //StartCoroutine(ShootFireball());
     }
@@ -151,6 +165,72 @@ public class Player : MonoBehaviour
 
             yield return new WaitForSeconds(fireballShootDelay);
         }
+    }
+
+    public void AllowInterraction(bool allowed)
+    {
+        InterractText.SetActive(allowed);
+
+        canInterract = allowed;
+    }
+
+    private void OnInterract()
+    {
+        if (!canInterract)
+            return;
+
+        if (GameManager.Instance.currentCoinCount < GameManager.Instance.currentChestCount)
+            return;
+
+        
+
+        int x = (int)Mathf.Floor(transform.position.x);
+        int y = (int)Mathf.Floor(transform.position.y);
+
+        bool shouldBreak = false;
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                Vector3Int pos = new Vector3Int((int)Mathf.Floor(transform.position.x)+ i, (int)Mathf.Floor(transform.position.y) + j, 0);
+                TileBase tile = obstacleMap.GetTile(pos);
+
+                if (tile == chestTile)
+                {
+                    obstacleMap.SetTile(pos, null);
+                    GameManager.Instance.ChangeState(new STGetUppgradePlayer());
+                    GameManager.Instance.currentCoinCount -= GameManager.Instance.currentChestCount;
+                    shouldBreak = true;
+                    break;
+                }
+
+                if(tile == closedLadderTile)
+                {
+                    EventManager.Instance.StartLadderEvent();
+
+                    ladderPosition = pos;
+                    canInterract = false;
+                }
+
+                if (tile == ladderTile)
+                {
+                    EventManager.Instance.StageComplete();
+                    GameManager.Instance.ChangeState(new STLoadScene(2));
+                }
+            }
+            if (shouldBreak)
+                break;
+        }
+
+        canInterract = false;
+    }
+
+    private void ReplaceHatchWithLadder()
+    {
+        EventManager.Instance.OnFinishedLadderEvent -= ReplaceHatchWithLadder;
+
+        obstacleMap.SetTile(ladderPosition, null);
     }
 
     public void LevelUp()

@@ -70,6 +70,20 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         tileMapVisualizer.PaintFloorTiles(floorPositions);
         foreach(var pos in obstaclePositions)
             tileMapVisualizer.PaintSingleObstacle(pos);
+
+        int i = 0;
+        int rand = UnityEngine.Random.Range(0, obstaclePositions.Count);
+
+        foreach (var pos in obstaclePositions)
+        {
+            if(i == rand)
+            {
+                tileMapVisualizer.PlaceLadder(pos);
+                break;
+            }
+            i++;
+        }
+
         WallGenerator.CreateWalls(floorPositions, tileMapVisualizer);
     }
 

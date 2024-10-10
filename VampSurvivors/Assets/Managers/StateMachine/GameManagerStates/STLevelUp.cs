@@ -10,13 +10,9 @@ namespace GMStates
     {
         public void OnEnter()
         {
-            Time.timeScale = 0.0f;
-
-            GameManager.Instance.isInLevelUp = true;
-
             UnitManager.Instance.player.GetComponent<Player>().LevelUp();
-            UIManager.levelUpScreen.SetActive(true);
-            GameManager.Instance.gameIsPaused = true;
+
+            //Play level upp animation here
         }
 
         public void UpdateState()
@@ -26,10 +22,6 @@ namespace GMStates
 
         public void OnExit()
         {
-            GameManager.Instance.isInLevelUp = false;
-            UIManager.levelUpScreen.SetActive(false);
-            Time.timeScale = 1.0f;
-            GameManager.Instance.gameIsPaused = false;
         }
     }
 }

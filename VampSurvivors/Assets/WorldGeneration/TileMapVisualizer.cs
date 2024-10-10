@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using NavMeshPlus.Components;
+using UnityEngine.UIElements;
 
 public class TileMapVisualizer : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TileMapVisualizer : MonoBehaviour
     NavMeshSurface[] navMesh;
     
     [SerializeField]
-    private TileBase wallTop, chest; //Make random list later
+    private TileBase wallTop, chest, ladderTile; //Make random list later
 
     [SerializeField] private TileBase[] floorTiles, obstacleTiles;
 
@@ -52,25 +53,24 @@ public class TileMapVisualizer : MonoBehaviour
         PaintSingleTile(wallTileMap, wallTop, position);
     }
 
+    int chests = 0;
+
     public void PaintSingleObstacle(Vector2Int position)
     {
-        int chests = 0;
-
-        if(chests < 7)
-            if (Random.Range(0, 10) > 8)
-            {
-                PaintSingleChest(position);
-                chests++;
-            }   
-            else
-            {
-                PaintSingleTile(obstacleTileMap, obstacleTiles[Random.Range(0, obstacleTiles.Length)], position);
-            }
+        if (Random.Range(0, 10) > 8)
+        {
+            PaintSingleChest(position);
+            chests++;
+        }
         else
         {
             PaintSingleTile(obstacleTileMap, obstacleTiles[Random.Range(0, obstacleTiles.Length)], position);
         }
+    }
 
+    public void PlaceLadder(Vector2Int position)
+    {
+        PaintSingleTile(obstacleTileMap, ladderTile, position);
     }
 
     public void PaintSingleChest(Vector2Int position)

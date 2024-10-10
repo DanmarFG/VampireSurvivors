@@ -91,6 +91,10 @@ public class Unit : MonoBehaviour, IEnemy
         gameObject.SetActive(true);
         agent.isStopped = false;
 
+        health = health + (GameManager.Instance.coef- 1)/0.33f;
+
+        UnitManager.Instance.spawnedEnemies++;
+
         StartCoroutine(PositionController());
     }
 
@@ -106,6 +110,8 @@ public class Unit : MonoBehaviour, IEnemy
             ExperienceBag.Instance.SpawnExperience(transform.position);
 
         Instantiate(bloodFX, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+
+        EventManager.Instance.EnemyDeath();
 
         gameObject.SetActive(false);
     }

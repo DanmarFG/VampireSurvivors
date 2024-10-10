@@ -42,9 +42,7 @@ namespace Managers
         public event Action<float> OnAddExperience;
 
         public void AddExperience(float experience)
-        {
-            Debug.Log("AddExperience");
-            
+        {            
             OnAddExperience?.Invoke(experience);
         }
 
@@ -65,6 +63,53 @@ namespace Managers
         public void NavMeshFinished()
         {
             OnNavMeshBuilt?.Invoke();
+        }
+
+        public event Action OnEnemyDeath, OnCoinCollected, OnRunStarted, OnStageCompleted;
+        public void EnemyDeath()
+        {
+            OnEnemyDeath?.Invoke();
+        }
+
+        public void CoinCollected()
+        {
+            OnCoinCollected?.Invoke();
+        }
+
+        public void RunStarted()
+        {
+            OnRunStarted?.Invoke();
+        }
+
+        public void StageComplete()
+        {
+            OnStageCompleted?.Invoke();
+        }
+
+        public event Action OnStartLadderEvent;
+
+        public void StartLadderEvent()
+        {
+            OnStartLadderEvent?.Invoke();
+        }
+
+        public event Action OnFinishedLadderEvent;
+
+        public void FinishedLadderEvent()
+        {
+            OnFinishedLadderEvent?.Invoke();
+        }
+
+        public event Action OnSecond, OnMinute;
+
+        public void SecondHappened()
+        {
+            OnSecond?.Invoke();
+        }
+
+        public void MinuteHappened()
+        {
+            OnMinute?.Invoke();
         }
     } 
 }

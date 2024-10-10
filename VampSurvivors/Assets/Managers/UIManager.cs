@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GMStates;
 using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,12 +16,15 @@ public class UIManager : MonoBehaviour
     
     [SerializeField]
     private GameObject _levelUpScreen;
+
+    [SerializeField] TMP_Text currentCoinText;
     public static GameObject levelUpScreen { get; private set; }
     private void Start()
     {
         currentLevel++;
         ExpBar.maxValue = maxExp;
         EventManager.Instance.OnAddExperience += AddExperience;
+        EventManager.Instance.OnCoinCollected += AddCoins;
 
         levelUpScreen = _levelUpScreen;
     }
@@ -33,10 +37,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    void AddCoins()
+    {
+        currentCoinText.text = GameManager.Instance.currentCoinCount + "$";
+    }
+
     void AddExperience(float exp)
     {
         ExpBar.value += exp;
-        
 
         if (ExpBar.value >= maxExp)
         {
