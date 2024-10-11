@@ -2,7 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Ghost : MonoBehaviour
+public interface iSpotted
+{
+    public void Spotted();
+}
+
+public class Ghost : MonoBehaviour, iSpotted
 {
 
     [SerializeField] private NavMeshAgent agent;

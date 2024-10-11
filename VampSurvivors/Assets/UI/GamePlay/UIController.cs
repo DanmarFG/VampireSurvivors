@@ -16,6 +16,8 @@ public class UIController : MonoBehaviour
     void Start()
     {
         EventManager.Instance.OnPauseGame += PauseScreen;
+        EventManager.Instance.OnPlayerDied += OpenDeathScreen;
+        tryAgainButton.onClick.AddListener(() => GameManager.Instance.ResetGame());
         tryAgainButton.onClick.AddListener(() => GameManager.Instance.ChangeState(new STLoadScene(2)));
         tryAgainButton.onClick.AddListener(RemoveAllListeners);
 

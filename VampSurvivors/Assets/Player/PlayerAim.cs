@@ -28,11 +28,11 @@ public class PlayerAim : MonoBehaviour
 
         RotateBox();
 
-        Ghost g;
+        iSpotted g;
 
         foreach (var enemy in fov.visibleTargets)
         {
-            g = enemy.GetComponentInParent<Ghost>();
+            g = enemy.GetComponentInParent<iSpotted>();
 
             if (g == null)
                 continue;

@@ -177,12 +177,7 @@ public class Player : MonoBehaviour
     private void OnInterract()
     {
         if (!canInterract)
-            return;
-
-        if (GameManager.Instance.currentCoinCount < GameManager.Instance.currentChestCount)
-            return;
-
-        
+            return;       
 
         int x = (int)Mathf.Floor(transform.position.x);
         int y = (int)Mathf.Floor(transform.position.y);
@@ -198,6 +193,9 @@ public class Player : MonoBehaviour
 
                 if (tile == chestTile)
                 {
+                    if (GameManager.Instance.currentCoinCount < GameManager.Instance.currentChestCount)
+                        return;
+
                     obstacleMap.SetTile(pos, null);
                     GameManager.Instance.ChangeState(new STGetUppgradePlayer());
                     GameManager.Instance.currentCoinCount -= GameManager.Instance.currentChestCount;
@@ -208,6 +206,8 @@ public class Player : MonoBehaviour
                 if(tile == closedLadderTile)
                 {
                     EventManager.Instance.StartLadderEvent();
+
+                    Debug.Log("Sent event");
 
                     ladderPosition = pos;
                     canInterract = false;
@@ -230,7 +230,7 @@ public class Player : MonoBehaviour
     {
         EventManager.Instance.OnFinishedLadderEvent -= ReplaceHatchWithLadder;
 
-        obstacleMap.SetTile(ladderPosition, null);
+        obstacleMap.SetTile(ladderPosition, ladderTile);
     }
 
     public void LevelUp()
@@ -257,7 +257,5 @@ public class Player : MonoBehaviour
         fireballShootDelay += statsToAdd.fireballShootDelay;
         fireBallSpeed += statsToAdd.fireballSpeed;
         punch.damage += statsToAdd.punchDamage;
-        Debug.Log(statsToAdd.punchReach);
-
     }
 }

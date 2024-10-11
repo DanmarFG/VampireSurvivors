@@ -15,7 +15,9 @@ public class SpawnController : MonoBehaviour
     [SerializeField]
     CorridorFirstDungeonGenerator firstDungeonGenerator;
 
-    double spawnCredits = 0;
+    public double spawnCredits = 0;
+
+    public bool teleporterEvent = false, levelCompleted = false;
     
     private void Start()
     {
@@ -34,7 +36,34 @@ public class SpawnController : MonoBehaviour
 
     void AddSpawnCredit()
     {
+        if (levelCompleted)
+            return;
+
         spawnCredits += (0.1f * (1 + 0.4 * GameManager.Instance.coef) * 1/ 2);
+
+        if (teleporterEvent)
+        {
+            while (spawnCredits >= 1)
+            {
+                SpawnGhostFree();
+                SpawnRatFree();
+
+                if (UnitManager.Instance.spawnedEnemies > 40)
+                    break;
+            }
+        }
+        else
+        {
+            while (spawnCredits >= 1)
+            {
+                SpawnGhost();
+                SpawnRat();
+
+                if (UnitManager.Instance.spawnedEnemies > 40)
+                    break;
+            }
+        }
+        
     }
 
     void StartSpawnTimer()
@@ -43,39 +72,17 @@ public class SpawnController : MonoBehaviour
 
         avalibleSpawnPositions = firstDungeonGenerator.floorPositions;
 
-        StartCoroutine(SpawnEnemy());
     }
 
-    IEnumerator SpawnEnemy()
-    {
-        //Do actual spawning and shit in here maybe waves or smth
-
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-
-            if (UnitManager.Instance.spawnedEnemies > 40)
-                continue;
-
-            while (spawnCredits > 5 && UnitManager.Instance.spawnedEnemies < 40)
-            {
-                SpawnGhost();
-                SpawnRat();
-            }
-        }
-    }
 
     public void SpawnRat()
     {
-        if(spawnCredits > 5)
+        if(spawnCredits > 1)
         {
             Vector2Int spawnPosition = GetRandomSpawnPoint();
             UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
 
-            spawnCredits -= 5;
+            spawnCredits -= 1;
         }
     }
 
@@ -83,22 +90,16 @@ public class SpawnController : MonoBehaviour
     {
         Vector2Int spawnPosition = GetRandomSpawnPoint();
         UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-        UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-        UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-        UnitManager.Instance.FindEnemy(UnitType.Rat).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
     }
 
     public void SpawnGhost()
     {
-        if (spawnCredits > 10)
+        if (spawnCredits > 5)
         {
             Vector2Int spawnPosition = GetRandomSpawnPoint();
             UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-            UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
 
-            spawnCredits -= 10;
+            spawnCredits -= 5;
         }
     }
 
@@ -106,8 +107,7 @@ public class SpawnController : MonoBehaviour
     {
         Vector2Int spawnPosition = GetRandomSpawnPoint();
         UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-        UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
-        UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
+        spawnPosition = GetRandomSpawnPoint();
         UnitManager.Instance.FindEnemy(UnitType.Ghost).GetComponent<Unit>().Spawn((Vector3Int)spawnPosition);
     }
 
@@ -119,8 +119,10 @@ public class SpawnController : MonoBehaviour
 
     void StartTeleporterEvent()
     {
-        StartCoroutine(SpawnEnemyTeleporter());
+        teleporterEvent = true;
         EventManager.Instance.OnStartLadderEvent -= StartTeleporterEvent;
+
+        StartCoroutine(TeleporterEventTimer());
     }
 
     void StopSpawning()
@@ -128,28 +130,10 @@ public class SpawnController : MonoBehaviour
         StopAllCoroutines();
     }
 
-    IEnumerator SpawnEnemyTeleporter()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-
-            if (UnitManager.Instance.spawnedEnemies > 40)
-                continue;
-
-            SpawnGhostFree();
-            SpawnRatFree();
-
-
-        }
-    }
-
     IEnumerator TeleporterEventTimer()
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(5f);
         StopSpawning();
         EventManager.Instance.FinishedLadderEvent();
     }
-
-
 }

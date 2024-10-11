@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
         EventManager.Instance.OnAddExperience += AddExperience;
         EventManager.Instance.OnCoinCollected += AddCoins;
 
+        currentCoinText.text = GameManager.Instance.currentCoinCount + "$";
+
         levelUpScreen = _levelUpScreen;
     }
 

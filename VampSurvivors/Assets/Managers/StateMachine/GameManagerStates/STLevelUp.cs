@@ -10,6 +10,7 @@ namespace GMStates
     {
         public void OnEnter()
         {
+            EventManager.Instance.PlayerLevelUp();
             UnitManager.Instance.player.GetComponent<Player>().LevelUp();
 
             //Play level upp animation here

@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 
 namespace Managers
 {
-    public enum UnitType {All, Rat, Ghost}
+    public enum UnitType {All, Rat, Ghost, Flame}
     public class UnitManager : MonoBehaviour
     {
         public static UnitManager Instance;
@@ -36,6 +36,7 @@ namespace Managers
         public List<GameObject> allEnemies = new List<GameObject>();
         public List<GameObject> ratList = new List<GameObject>();
         public List<GameObject> ghostList = new List<GameObject>();
+        public List<GameObject> flametList = new List<GameObject>();
 
         public Player player;
         public GameObject playerPF;
@@ -67,6 +68,7 @@ namespace Managers
         {
             CreateEnemy(UnitType.Rat, 20);
             CreateEnemy(UnitType.Ghost, 20);
+            CreateEnemy(UnitType.Flame, 20);
         }
         
         
@@ -112,6 +114,7 @@ namespace Managers
             {
                 UnitType.Rat => enemyPrefabs[0],
                 UnitType.Ghost => enemyPrefabs[1],
+                UnitType.Flame => enemyPrefabs[2],
                 _ => null
             };
         }
@@ -123,6 +126,7 @@ namespace Managers
                 UnitType.All => allEnemies,
                 UnitType.Rat => ratList,
                 UnitType.Ghost => ghostList,
+                UnitType.Flame => flametList,
                 _ => allEnemies
             };
         }
@@ -133,6 +137,11 @@ namespace Managers
             yield return null;
 
             virtualCamera.Follow = player.gameObject.transform;
+
+            for (int i = 0; i < GameManager.Instance.playerLevel; i++)
+            {
+                player.LevelUp();
+            }
         }
 
         public Vector2 GetPlayerPosition()

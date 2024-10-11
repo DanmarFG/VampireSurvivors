@@ -18,6 +18,8 @@ namespace GMStates
             startGameButton = GameObject.Find("StartGameButton");
             startGameButton.GetComponent<Button>().onClick.AddListener(LoadGamePlay);
             startGameButton.GetComponent<Button>().onClick.AddListener(EventManager.Instance.RunStarted);
+
+            GameManager.Instance.ResetGame();
         }
 
         void LoadGamePlay()

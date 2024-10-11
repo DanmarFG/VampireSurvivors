@@ -93,6 +93,7 @@ namespace Managers
         public float playerFactor = 1;
         public float timeFactor = 0;
         public float stageFactor = 0;
+        public int playerLevel = 0;
 
 
         private void Awake()
@@ -142,6 +143,7 @@ namespace Managers
             EventManager.Instance.OnEnemyDeath += AddKill;
             EventManager.Instance.OnRunStarted += AddRun;
             EventManager.Instance.OnStageCompleted += AddStagesCompleted;
+            EventManager.Instance.OnplayerLevelUp += PlayerLevelUp;
         }
 
         public void ChangeState(IState state)
@@ -205,6 +207,12 @@ namespace Managers
             currentCoinCount = 0;
             currentChestCount = 5;
             currentDifficulty = 1;
+            playerLevel = 0;
+        }
+
+        public void PlayerLevelUp()
+        {
+            playerLevel++;
         }
     }
 

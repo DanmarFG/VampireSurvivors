@@ -27,11 +27,16 @@ namespace Managers
         }
         
         public event Action<float> OnPlayerTookDamage;
-        public event Action OnPlayerDied;
+        public event Action OnPlayerDied, OnplayerLevelUp;
 
         public void PlayerTookDamage(float damage)
         {
             OnPlayerTookDamage?.Invoke(damage);
+        }
+
+        public void PlayerLevelUp()
+        {
+            OnplayerLevelUp?.Invoke();
         }
 
         public void PlayerDied()
