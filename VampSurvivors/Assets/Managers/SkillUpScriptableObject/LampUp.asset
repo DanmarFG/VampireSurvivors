@@ -23,4 +23,4 @@ MonoBehaviour:
     punchDamage: 0
     punchReach: 0
   flairText: 'Better battery: +5 more in lamp FOV'
-  picToDisplay: {fileID: -933503062, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}
+  picToDisplay: {fileID: 21300000, guid: ad08c14b4e7152e4fb01331d204d0ad5, type: 3}

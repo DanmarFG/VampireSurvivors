@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 389c21b5d44a38d44b36251cbad5a037, type: 3}
-  m_Name: AttackUp
+  m_Name: FireBall
   m_EditorClassIdentifier: 
   stats:
     speed: 0
     health: 0
     maxHealth: 0
     maxFov: 0
-    fireballShootDelay: 0.1
-    fireballDamage: 10
-    fireballSpeed: 0
+    fireballShootDelay: 0
+    fireballDamage: 0
+    fireballSpeed: 20
     punchDamage: 0
     punchReach: 0
-  flairText: 'Sword: +10 fireball damage'
-  picToDisplay: {fileID: 21300000, guid: 796ec6bba2eb0ab4eb34af9c4be24155, type: 3}
-  addFireball: 0
+  flairText: Start shooting! adds fireball if fireball has not been added
+  picToDisplay: {fileID: 21300000, guid: 2f759781e44aeb14da786acf0d8b68dd, type: 3}
+  addFireball: 1

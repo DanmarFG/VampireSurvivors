@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewRadius: 15
-  viewAngle: 35
+  viewAngle: 50
   fovRotation: -276.63867
   targetMask:
     serializedVersion: 2
@@ -374,8 +374,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.857}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 98.5578, y: -21.3233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6690714655783854462
 CanvasRenderer:
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   maxHealth: 10
-  playerSpeed: 1
+  playerSpeed: 3
   canMove: 1
   canTakeDamage: 1
   playerAim: {fileID: 4107679381672304121}
@@ -566,11 +566,10 @@ MonoBehaviour:
   chestTile: {fileID: 11400000, guid: e554700395123db42b32a6fd70cb0ff4, type: 2}
   closedLadderTile: {fileID: 11400000, guid: 5465e94678d7e63449e65d99579eb9c7, type: 2}
   ladderTile: {fileID: 11400000, guid: 41be5c66a58612446a68f171ef202d61, type: 2}
-  fireballShootDelay: 1
+  fireballShootDelay: 5
   fireBallSpeed: 200
   fireBallDamage: 200
   punch: {fileID: 274166618099398545}
-  attackDowntime: 2
   playerAnimator: {fileID: 663308277362979081}
 --- !u!50 &5744806769827858758
 Rigidbody2D:
@@ -646,7 +645,7 @@ Transform:
   m_GameObject: {fileID: 4704986925548449865}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0099, y: 0.0049, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

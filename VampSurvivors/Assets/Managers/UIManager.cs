@@ -1,15 +1,19 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using GMStates;
 using Managers;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public Slider ExpBar;
     public float maxExp = 10f;
     public int currentLevel = 0;
@@ -17,7 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject _levelUpScreen;
 
-    [SerializeField] TMP_Text currentCoinText;
+    [SerializeField] TMP_Text currentCoinText, countDownText;
     public static GameObject levelUpScreen { get; private set; }
     private void Start()
     {
@@ -25,21 +29,21 @@ public class UIManager : MonoBehaviour
         ExpBar.maxValue = maxExp;
         EventManager.Instance.OnAddExperience += AddExperience;
         EventManager.Instance.OnCoinCollected += AddCoins;
+        EventManager.Instance.OnStartLadderEvent += StartLadderCountDown;
 
         currentCoinText.text = GameManager.Instance.currentCoinCount + "$";
 
         levelUpScreen = _levelUpScreen;
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            AddExperience(1f);
-        }
+        EventManager.Instance.OnAddExperience -= AddExperience;
+        EventManager.Instance.OnCoinCollected -= AddCoins;
+        EventManager.Instance.OnStartLadderEvent -= StartLadderCountDown;
     }
 
-    void AddCoins()
+    public void AddCoins()
     {
         currentCoinText.text = GameManager.Instance.currentCoinCount + "$";
     }
@@ -85,5 +89,29 @@ public class UIManager : MonoBehaviour
         currentLevel++;
         GameManager.Instance.ChangeState(new STGamePlay());
         
+    }
+
+    int countDown = 20;
+
+    void StartLadderCountDown()
+    {
+        countDown = 20;
+
+        countDownText.gameObject.SetActive(true);
+
+        StartCoroutine(DoCountDown());
+    }
+
+    IEnumerator DoCountDown()
+    {
+        while (countDown > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            countDown--;
+
+            countDownText.text = countDown.ToString();
+        }
+
+        countDownText.gameObject.SetActive(false);
     }
 }

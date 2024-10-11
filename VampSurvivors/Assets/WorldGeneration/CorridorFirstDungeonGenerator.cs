@@ -6,6 +6,7 @@ using Managers;
 using NavMeshPlus.Components;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
 {
@@ -68,13 +69,17 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         floorPositions.UnionWith(roomPositions);
         
         tileMapVisualizer.PaintFloorTiles(floorPositions);
-        foreach(var pos in obstaclePositions)
-            tileMapVisualizer.PaintSingleObstacle(pos);
+
+        foreach(var pos in floorPositions)
+        {
+            if(UnityEngine.Random.Range(0, 10) == 5)
+                obstaclePositions.Add(pos);
+        }
 
         int i = 0;
-        int rand = UnityEngine.Random.Range(0, obstaclePositions.Count);
+        int rand = UnityEngine.Random.Range(0, floorPositions.Count-1);
 
-        foreach (var pos in obstaclePositions)
+        foreach (var pos in floorPositions)
         {
             if(i == rand)
             {
@@ -83,6 +88,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
             i++;
         }
+
+        foreach (var pos in obstaclePositions)
+            tileMapVisualizer.PaintSingleObstacle(pos);
 
         WallGenerator.CreateWalls(floorPositions, tileMapVisualizer);
     }
@@ -95,14 +103,6 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             {
                 var room = RunRandomWalk(randomWalkParameters, position);
                 roomFloors.UnionWith(room);
-            }
-
-            foreach (var roomPosition in deadEnds)
-            {
-                if (UnityEngine.Random.Range(0, 10) == 5)
-                {
-                    obstaclePositions.Add(roomPosition);
-                }
             }
         }
     }
@@ -137,14 +137,6 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         {
             var roomFloor = RunRandomWalk(randomWalkParameters, roomPosition);
             roomPositions.UnionWith(roomFloor);
-        }
-
-        foreach (var roomPosition in roomPositions)
-        {
-            if(UnityEngine.Random.Range(0, 10) == 5)
-            {
-                obstaclePositions.Add(roomPosition);
-            }
         }
 
         return roomPositions;

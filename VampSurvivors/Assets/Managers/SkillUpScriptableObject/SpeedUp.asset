@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpeedUp
   m_EditorClassIdentifier: 
   stats:
-    speed: 10
+    speed: 1
     health: 0
     maxHealth: 0
     maxFov: 0
@@ -22,5 +22,6 @@ MonoBehaviour:
     fireballSpeed: 0
     punchDamage: 0
     punchReach: 0
-  flairText: 'Normal boots: +10 speed'
-  picToDisplay: {fileID: 1311474718, guid: 56766ac9c133e78429adbd5bd9a06181, type: 3}
+  flairText: 'Normal boots: +1 speed'
+  picToDisplay: {fileID: 21300000, guid: d5b0e13ebe59cd64e9f67284457c6868, type: 3}
+  addFireball: 0
