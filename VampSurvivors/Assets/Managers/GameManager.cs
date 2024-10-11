@@ -164,10 +164,15 @@ namespace Managers
                 stateController.ChangeState(new STGamePlay());
         }
 
+        int totalCoinsCollected = 0;
         void AddCoinCollected()
         {
             alltimeStats.coinsCollected++;
             currentCoinCount++;
+            totalCoinsCollected++;
+            if (totalCoinsCollected % 10 == 0)
+                EventManager.Instance.TenCoinsPickup();
+
             PlayerPrefs.SetInt("CoinsCollected", alltimeStats.coinsCollected);
 
         }

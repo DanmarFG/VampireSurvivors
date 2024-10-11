@@ -118,18 +118,29 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4689274988188710030, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1487687168242500155}
+    - targetCorrespondingSourceObject: {fileID: 4689274988188710030, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5566138098832811661}
   m_SourcePrefab: {fileID: 100100000, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
---- !u!212 &1847136518091546901 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7284969915747311230, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
-  m_PrefabInstance: {fileID: 8987831813086461803}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4442967796634455013 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4689274988188710030, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
   m_PrefabInstance: {fileID: 8987831813086461803}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1487687168242500155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4442967796634455013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f59346436989044e954c51d64d2524e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 8603569954791918632}
 --- !u!114 &5566138098832811661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,14 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28905765b5855847bbf89dd0b093f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 1847136518091546901}
-  agent: {fileID: 6596277131661022322}
-  animator: {fileID: 8603569954791918632}
---- !u!195 &6596277131661022322 stripped
-NavMeshAgent:
-  m_CorrespondingSourceObject: {fileID: 2824212646810168089, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}
-  m_PrefabInstance: {fileID: 8987831813086461803}
-  m_PrefabAsset: {fileID: 0}
+  isSpotted: 0
 --- !u!95 &8603569954791918632 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 854896817863766851, guid: 8b09fa6f9fe2a3d4b94589166e941e02, type: 3}

@@ -26,6 +26,7 @@ public class SpawnController : MonoBehaviour
         EventManager.Instance.OnGamePlay += StartSpawnTimer;
         EventManager.Instance.OnSecond += AddSpawnCredit;
         EventManager.Instance.OnStartLadderEvent += StartTeleporterEvent;
+        EventManager.Instance.OnTenCoinsPickup += TenCoinsPickedUp;
     }
 
     private void OnDisable()
@@ -33,6 +34,8 @@ public class SpawnController : MonoBehaviour
         EventManager.Instance.OnGamePlay -= StartSpawnTimer;
         EventManager.Instance.OnSecond -= AddSpawnCredit;
     }
+
+    
 
     int timePlayed = 0;
 
@@ -43,7 +46,8 @@ public class SpawnController : MonoBehaviour
         if (levelCompleted)
             return;
 
-        spawnCredits += (GameManager.Instance.coef + 4*(timePlayed*0.1f));
+        if(timePlayed %2 == 0)
+            GiveCredits();
 
         if (teleporterEvent)
         {
@@ -70,6 +74,19 @@ public class SpawnController : MonoBehaviour
             }
         }
         
+    }
+
+    void GiveCredits()
+    {
+        for (int i = 0; i < GameManager.Instance.IngameTimer.minutes + 1; i++)
+        {
+            spawnCredits += Random.Range(0, 5);
+        }
+    }
+
+    void TenCoinsPickedUp()
+    {
+        spawnCredits += 10;
     }
 
     void StartSpawnTimer()
@@ -141,7 +158,7 @@ public class SpawnController : MonoBehaviour
 
     Vector2Int GetRandomSpawnPoint()
     {
-        var n = Random.Range(0, avalibleSpawnPositions.Count);
+        var n = Random.Range(1, avalibleSpawnPositions.Count-1);
         return new Vector2Int(avalibleSpawnPositions.ElementAt(n).x, avalibleSpawnPositions.ElementAt(n).y);
     }
 

@@ -116,6 +116,13 @@ namespace Managers
         {
             OnMinute?.Invoke();
         }
+
+        public event Action OnTenCoinsPickup;
+
+        public void TenCoinsPickup()
+        {
+            OnTenCoinsPickup?.Invoke();
+        }
     } 
 }
 

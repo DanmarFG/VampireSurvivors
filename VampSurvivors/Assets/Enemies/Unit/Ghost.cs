@@ -1,45 +1,48 @@
+using Managers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public interface iSpotted
-{
-    public void Spotted();
-}
-
 public class Ghost : MonoBehaviour, iSpotted
 {
-
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Unit stats;
-    [SerializeField] private Animator animator;
-
-    private float acceleration;
+    private NavMeshAgent agent;
+    private Unit stats;
+    private Animator animator;
 
     private void OnEnable()
     {
-        acceleration = agent.acceleration;
+        agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        stats = GetComponent<Unit>();
+
         animator.SetBool("Spotted", false);
+
+        if (gameObject.activeSelf)
+            agent.isStopped = false;
+    }
+
+    private void OnDisable()
+    {
+        animator.SetBool("Spotted", false);
+    }
+
+    private void Update()
+    {
+        agent.SetDestination(new Vector3(UnitManager.Instance.GetPlayerPosition().x, UnitManager.Instance.GetPlayerPosition().y, 0));
     }
 
     public void Spotted()
     {
         StopAllCoroutines();
-        agent.SetDestination(transform.position);
-        agent.speed = 0;
-        agent.acceleration = 0;
-        stats.canMove = false;
+        agent.isStopped = true;
+        StartCoroutine(ResetSpotted());
         animator.SetBool("Spotted", true);
-        StartCoroutine(SetBackSpeed());
     }
 
-    IEnumerator SetBackSpeed()
+    public IEnumerator ResetSpotted()
     {
         yield return new WaitForSeconds(0.1f);
-        Debug.Log("Running");
-        agent.acceleration = acceleration;
-        agent.speed = stats.speed;
-        stats.canMove = true;
+        agent.isStopped = false;
         animator.SetBool("Spotted", false);
     }
 }

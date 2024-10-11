@@ -13,6 +13,8 @@ namespace GMStates
             EventManager.Instance.PlayerLevelUp();
             UnitManager.Instance.player.GetComponent<Player>().LevelUp();
 
+            GameManager.Instance.ChangeState(new STGamePlay());
+
             //Play level upp animation here
         }
 

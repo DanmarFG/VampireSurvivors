@@ -1,9 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine.AI;
+
+public interface iSpotted
+{
+    public void Spotted();
+}
+
 
 public interface IEnemy
 {
@@ -52,17 +56,11 @@ public class Unit : MonoBehaviour, IEnemy
         agent.enabled = true;
         agent.speed = speed;
     }
-    
+
     private void OnDisable()
     {
         canTakeDamage = true;
         
-    }
-
-    private void Update()
-    {
-        if(canMove)
-            agent.SetDestination(new Vector3(UnitManager.Instance.GetPlayerPosition().x, UnitManager.Instance.GetPlayerPosition().y, 0));
     }
 
     public void TakeDamage(float damageSource)
